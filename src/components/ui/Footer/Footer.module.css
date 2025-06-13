@@ -1,0 +1,96 @@
+.footer {
+  background: #fff;
+  padding: 36px 16px 10px 16px;
+  font-family: "Unbounded", sans-serif;
+  border-top: 1.5px solid #e3e6ea;
+  box-shadow: 0 -2px 12px 0 rgba(32, 146, 136, 0.06);
+}
+
+.footerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1152px;
+  margin: 0 auto;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.footerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 15px;
+  color: #444;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.footerLogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footerLogo img {
+  width: 96px;
+  height: auto;
+  filter: grayscale(0.15) brightness(0.97);
+  margin-bottom: 3px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px 0 rgba(32, 146, 136, 0.10);
+}
+
+.shopName {
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: 1.5px;
+  color: #209288;
+  margin-top: 2px;
+}
+
+.footerSocials {
+  display: flex;
+  gap: 18px;
+  font-size: 22px;
+  color: #209288;
+  align-items: center;
+}
+
+.footerSocials svg {
+  cursor: pointer;
+  transition: 
+    color 0.15s,
+    transform 0.21s cubic-bezier(.2,.8,.36,1.03);
+  opacity: 0.86;
+}
+
+.footerSocials svg:hover {
+  color: #0d524c;
+  transform: scale(1.14) translateY(-2px);
+  opacity: 1;
+}
+
+.footerCopy {
+  text-align: center;
+  font-size: 13px;
+  color: #7f9390;
+  margin-top: 24px;
+  letter-spacing: 0.3px;
+  padding-bottom: 3px;
+}
+
+@media (max-width: 700px) {
+  .footerContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 0 2px;
+  }
+  .footerLogo {
+    margin: 16px 0 8px 0;
+  }
+  .footerCopy {
+    font-size: 12px;
+  }
+}

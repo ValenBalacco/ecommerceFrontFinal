@@ -1,0 +1,39 @@
+.sidebarFilterContainer {
+  display: flex;
+  flex-direction: column;
+  font-family: "Unbounded", sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.473);
+  padding: 25px;
+  height: 100%;
+  width: 300px;
+    
+}
+.filterButtonContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+}
+.filterButtonContainer button {
+  all: unset;
+  background: #175992c7;
+  padding: 7px;
+  color: #fff;
+  cursor: pointer;
+}
+.containerSidebar{
+display: flex;
+flex-direction: column;
+}
+.sortSection ,.categorySection,.productTypeSection,.sizeSection{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 50px;
+    justify-content: center;
+    
+}
+
+.checkboxItem{
+    display: flex;
+    margin-left: 25px;
+}

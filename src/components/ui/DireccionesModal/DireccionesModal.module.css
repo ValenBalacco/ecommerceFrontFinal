@@ -1,0 +1,125 @@
+.fondoModal {
+	position: fixed;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 50;
+}
+
+.modal {
+	background-color: white;
+	border-radius: 0.5rem;
+	width: 100%;
+	max-width: 28rem;
+	padding: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	max-height: 90vh;
+	overflow: auto;
+}
+
+.titulo {
+	font-size: 1.125rem;
+	font-weight: 600;
+}
+
+.input {
+	width: 100%;
+	border: 1px solid #ccc;
+	border-radius: 0.25rem;
+	padding: 0.5rem;
+}
+
+.botonesFila {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.5rem;
+	padding-top: 0.5rem;
+}
+
+.botonCancelar {
+	padding: 0.5rem 1rem;
+	border: 1px solid #ccc;
+	border-radius: 0.25rem;
+	width: 100%;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.botonCancelar:hover {
+	background-color: #f5f5f5;
+}
+
+.botonGuardar {
+	padding: 0.5rem 1rem;
+	background-color: #2563eb;
+	color: white;
+	border-radius: 0.25rem;
+	width: 100%;
+	cursor: pointer;
+	transition: background-color 0.2s;
+	border: none;
+}
+
+.botonGuardar:hover {
+	background-color: #1e40af;
+}
+
+.listaDirecciones {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	max-height: 16rem;
+	overflow-y: auto;
+}
+
+.opcionDireccion {
+	border: 1px solid #ccc;
+	border-radius: 0.25rem;
+	padding: 0.75rem;
+	cursor: pointer;
+	transition: background-color 0.2s, border-color 0.2s;
+}
+
+.opcionDireccion:hover {
+	background-color: #f9f9f9;
+}
+
+.opcionActiva {
+	border-color: #2563eb;
+	background-color: #eff6ff;
+}
+
+.radio {
+	margin-right: 0.5rem;
+}
+
+.labelDireccion {
+	font-weight: 500;
+}
+
+.textoDireccion {
+	font-size: 0.875rem;
+	color: #666;
+}
+
+.agregarLink {
+	color: #2563eb;
+	font-size: 0.875rem;
+	cursor: pointer;
+	transition: text-decoration 0.2s;
+}
+
+.agregarLink:hover {
+	text-decoration: underline;
+}
+
+.botonesFinal {
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.5rem;
+	padding-top: 0.5rem;
+}

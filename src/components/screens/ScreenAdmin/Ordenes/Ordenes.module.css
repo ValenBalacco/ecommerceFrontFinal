@@ -1,0 +1,85 @@
+.ordenesContainer {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(32, 32, 64, 0.08), 0 1.5px 4px rgba(60,60,60,0.04);
+  padding: 32px 28px;
+  margin: 24px auto;
+  max-width: 1100px;
+  min-height: 400px;
+}
+
+.title {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #2d3a4a;
+  margin-bottom: 26px;
+  letter-spacing: 0.01em;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(60,60,60,0.06);
+  background: #f5f7fa;
+}
+
+.ordenesTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #f5f7fa;
+}
+
+.ordenesTable th, .ordenesTable td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.ordenesTable th {
+  background: #e3e9f6;
+  color: #1e2a38;
+  font-size: 1.08rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.ordenesTable tr:last-child td {
+  border-bottom: none;
+}
+
+.ordenesTable tr:hover {
+  background: #eaf1fc;
+  transition: background 0.15s;
+}
+
+.price {
+  color: #18976d;
+  font-weight: 600;
+}
+
+.descuento {
+  background: #e8eefd;
+  color: #20509e;
+  padding: 2px 10px;
+  border-radius: 16px;
+  font-size: 0.96rem;
+  display: inline-block;
+  min-width: 42px;
+  text-align: center;
+}
+
+.loader {
+  color: #20509e;
+  font-size: 1.18rem;
+  font-weight: 500;
+  padding: 50px 0;
+  text-align: center;
+}
+
+.emptyMsg {
+  color: #bdbdbd;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 40px;
+}

@@ -1,0 +1,68 @@
+
+.screenMen{
+    display: flex;
+    flex-direction: column;
+    font-family: "Unbounded", sans-serif;
+}
+
+.bannerImages{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: auto;
+}
+.bannerImages img{
+    flex: 1; 
+    aspect-ratio: 1/1; 
+    width: 70px;
+    height: auto;
+    object-fit: cover;
+}
+
+.mainContent{
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+.productsSection{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.searchBar{
+    display: flex;
+    width: 400px;
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: 5.5rem;
+    border: black solid 1px;
+    align-items: center;
+}
+.searchBar input{
+    width: 100%;
+    padding: 15px;
+    border: none;
+    outline: none;
+}
+.searchBar input::placeholder{
+    color: #000;
+    font-family: "Unbounded", sans-serif;
+    font-weight: 600;
+    
+}
+.searchBar svg{
+    cursor: pointer;
+    padding-right: 7px;
+}
+.productCards{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 45px;
+    transform: scale(0.8);
+    align-items: center;
+}
+.productCards svg{
+    align-items: center;
+}

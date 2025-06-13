@@ -1,0 +1,95 @@
+/* Estilos generales del header */
+header {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 0 16px;
+}
+
+/* Contenedor principal */
+header .container {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px; /* Altura fija para el navbar */
+}
+
+/* Logo */
+header .logo {
+  font-size: 1.875rem; /* 3xl */
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  color: #2d3748; /* gray-800 */
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+/* Barra de búsqueda */
+header .search-container {
+  flex: 1;
+  margin: 0 24px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+header .search-container input {
+  width: 100%;
+  border: 1px solid #d1d5db; /* gray-300 */
+  border-radius: 9999px; /* rounded-full */
+  padding: 8px 16px 8px 48px;
+  outline: none;
+  transition: box-shadow 0.2s ease-in-out;
+  color: #4a5568; /* gray-700 */
+  height: 40px; /* Altura del input */
+}
+
+header .search-container input:focus {
+  box-shadow: 0 0 0 2px #4299e1; /* blue-500 */
+}
+
+header .search-container .search-icon {
+  position: absolute;
+  left: 16px;
+  color: #a0aec0; /* gray-500 */
+  width: 24px;
+  height: 24px;
+}
+
+/* Iconos del perfil y carrito */
+header .icon-container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  color: #4a5568; /* gray-700 */
+}
+
+header .icon-container a {
+  transition: color 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+header .icon-container a:hover {
+  color: #1a202c; /* gray-900 */
+}
+
+header .icon-container .cart {
+  position: relative;
+}
+
+header .icon-container .cart .badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #f56565; /* red-500 */
+  color: white;
+  font-size: 0.75rem; /* text-xs */
+  border-radius: 9999px; /* rounded-full */
+  padding: 2px 4px;
+}

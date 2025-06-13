@@ -1,0 +1,235 @@
+.contenedor {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background-color: #f5f5f5;
+	font-family: "Roboto", sans-serif;
+}
+
+.main {
+	flex: 1;
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.titulo {
+	font-size: 24px;
+	font-weight: 500;
+	margin-bottom: 10px;
+	color: #333;
+	text-align: center;
+}
+
+.subtitulo {
+	font-size: 16px;
+	color: #666;
+	margin-bottom: 20px;
+	font-weight: 400;
+	text-align: center;
+}
+
+.contenedorPrincipal {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+.contenedorProductos {
+	flex: 2;
+	background-color: white;
+	border-radius: 8px;
+	padding: 20px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.cardProducto {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	padding: 10px;
+	margin-bottom: 8px;
+	border: 1px solid #eee;
+	border-radius: 6px;
+	background-color: #fff;
+}
+
+.imagen {
+	width: 80px;
+	height: 80px;
+	object-fit: cover;
+	border-radius: 4px;
+}
+
+.infoProducto {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 13vw;
+}
+
+.nombre {
+	font-weight: 500;
+	font-size: 15px;
+	color: #333;
+	margin-bottom: 4px;
+}
+
+.talle {
+	font-size: 13px;
+	color: #666;
+}
+
+.cantidadProducto {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-width: 100px;
+}
+
+.simpleContador {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.simpleBoton {
+	width: 28px;
+	height: 28px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	background: none;
+	font-size: 16px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.simpleBoton:hover {
+	background-color: #f5f5f5;
+}
+
+.simpleBoton:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.simpleValor {
+	min-width: 20px;
+	text-align: center;
+}
+
+.simpleWarningInline {
+	font-size: 12px;
+	color: #ff5722;
+	margin-top: 4px;
+	text-align: center;
+}
+
+.precioProducto {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: center;
+	min-width: 80px;
+}
+
+.precioOriginal {
+	font-size: 13px;
+	color: #999;
+	text-decoration: line-through;
+}
+
+.descuento {
+	font-size: 13px;
+	color: #00a650;
+	font-weight: 500;
+}
+
+.precioFinal {
+	font-size: 16px;
+	font-weight: 600;
+	color: #333;
+}
+
+.botonEliminar {
+	border: none;
+	background: none;
+	color: #999;
+	cursor: pointer;
+	padding: 4px;
+	display: flex;
+	align-items: center;
+	transition: color 0.2s;
+}
+
+.botonEliminar:hover {
+	color: #f44336;
+}
+
+.resumen {
+	flex: 1;
+	background-color: white;
+	border-radius: 8px;
+	padding: 20px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	height: fit-content;
+}
+
+.resumenTitulo {
+	font-size: 20px;
+	font-weight: 500;
+	margin-bottom: 20px;
+	color: #333;
+	text-align: center;
+}
+
+.resumenItem {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+	font-size: 14px;
+	color: #666;
+}
+
+.resumenTotal {
+	display: flex;
+	justify-content: space-between;
+	margin: 15px 0;
+	font-size: 18px;
+	font-weight: 600;
+	color: #333;
+}
+
+.linea {
+	border: none;
+	border-top: 1px solid #eee;
+	margin: 15px 0;
+}
+
+.botonConfirmar {
+	width: 100%;
+	padding: 12px;
+	background-color: #1c6cb1;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	margin-top: 20px;
+	transition: background-color 0.2s;
+}
+
+.botonConfirmar:hover {
+	background-color: #16578f;
+}
+
+.botonConfirmar:disabled {
+	background-color: #cccccc;
+	cursor: not-allowed;
+}

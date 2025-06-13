@@ -1,0 +1,110 @@
+.screenHome {
+  background: #fafbfc;
+  min-height: 100vh;
+}
+.heroSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 24px auto;
+}
+.heroImg {
+  width: 95%;
+  max-width: 970px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-top: 22px;
+}
+.quickAccessSection {
+  margin: 0 auto 28px auto;
+  padding: 0 20px;
+  max-width: 970px;
+}
+.quickAccessRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 18px;
+}
+.quickAccessTitle {
+  font-size: 17px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 6px;
+  display: block;
+}
+.quickAccessIcons {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+.quickAccessIcons img {
+  background: #fff;
+  border-radius: 11px;
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  box-shadow: 0 1px 8px 0 rgba(60,60,60,0.04);
+  padding: 8px;
+  border: 1px solid #f2f3f7;
+}
+.categoryRow {
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0 0 0;
+  gap: 0;
+}
+.categoryCard {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 2px;
+  padding: 10px 0 6px 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 8px 0 rgba(60,60,60,0.04);
+  transition: box-shadow .14s, transform .11s;
+  cursor: pointer;
+  font-size: 15px;
+  color: #222;
+}
+.categoryCard:hover {
+  box-shadow: 0 2px 16px 0 rgba(32,146,136,0.10);
+  transform: translateY(-2px) scale(1.04);
+}
+.categoryCard svg {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 4px;
+  color: #222;
+}
+.featuredSection {
+  margin: 36px auto 0 auto;
+  max-width: 980px;
+  padding: 0 18px;
+}
+.featuredTitle {
+  font-size: 21px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #222;
+}
+@media (max-width: 800px) {
+  .quickAccessRow, .categoryRow {
+    flex-direction: column;
+    gap: 14px;
+    align-items: stretch;
+  }
+  .categoryCard {
+    flex: none;
+    margin: 8px 0;
+  }
+  .heroImg {
+    height: 140px;
+  }
+  .featuredSection {
+    margin: 28px auto 0 auto;
+  }
+}

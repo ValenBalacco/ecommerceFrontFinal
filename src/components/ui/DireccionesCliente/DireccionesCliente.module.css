@@ -1,0 +1,78 @@
+.contenedor {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	font-size: 14px;
+}
+
+.titulo {
+	font-weight: 600;
+	margin-bottom: 2px;
+}
+
+.loading,
+.noDirecciones {
+	color: #666;
+	font-size: 13px;
+}
+
+.dropdownContainer {
+	position: relative;
+}
+
+.dropdownBoton {
+	width: 100%;
+	padding: 6px 8px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	background-color: #fff;
+	cursor: pointer;
+	font-size: 13px;
+	text-align: left;
+}
+
+.placeholder {
+	color: #aaa;
+}
+
+.dropdownLista {
+	position: absolute;
+	z-index: 10;
+	width: 100%;
+	margin-top: 4px;
+	max-height: 140px;
+	overflow-y: auto;
+	border: 1px solid #ccc;
+	background-color: white;
+	border-radius: 6px;
+}
+
+.itemLista {
+	padding: 6px 8px;
+	font-size: 13px;
+	cursor: pointer;
+}
+
+.itemLista:hover {
+	background-color: #f0f0f0;
+}
+
+.itemSeleccionado {
+	background-color: #e0f0ff;
+}
+
+.botonAgregar {
+	margin-top: 4px;
+	align-self: flex-start;
+	background-color: transparent;
+	color: #007bff;
+	font-size: 13px;
+	border: none;
+	padding: 4px 6px;
+	cursor: pointer;
+	border-radius: 4px;
+}
+
+.botonAgregar:hover {
+	background-color: #eef6ff;
+}

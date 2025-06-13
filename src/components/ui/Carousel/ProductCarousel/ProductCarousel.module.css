@@ -1,0 +1,31 @@
+.swiperContainer {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiperSlide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 1024px) {
+  .swiperSlide {
+    width: 25%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .swiperSlide {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .swiperSlide {
+    width: 100%;
+  }
+}

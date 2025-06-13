@@ -1,0 +1,39 @@
+.headerContainer {
+	display: flex;
+	justify-content: space-between;
+	font-family: "Unbounded", sans-serif;
+	background: #209288 20%;
+	color: white;
+}
+
+.logo {
+	margin: 8px;
+	margin-left: 20px;
+}
+.logo img {
+	width: 60px;
+	cursor: pointer;
+}
+
+.navContainer {
+	display: flex;
+	gap: 10rem;
+	justify-content: center;
+	align-items: center;
+	font-weight: 400;
+}
+.navContainer p {
+	cursor: pointer;
+	transition: transform 0.3s ease;
+}
+.navContainer p:hover {
+	transform: scale(1.2);
+}
+
+.iconsContainer {
+	display: flex;
+	align-items: center;
+	gap: 3rem;
+	margin-right: 30px;
+	cursor: pointer;
+}

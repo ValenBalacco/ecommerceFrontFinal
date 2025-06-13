@@ -1,0 +1,184 @@
+.profileLayout {
+  display: flex;
+  min-height: 80vh;
+  background: #fafbfc;
+  border-radius: 10px;
+  box-shadow: 0 3px 20px #0000000d;
+  margin: 28px auto 0 auto;
+  max-width: 1100px;
+  overflow: hidden;
+}
+
+.sidebar {
+  background: #f7f7f9;
+  flex: 1 1 230px;
+  min-width: 200px;
+  padding: 40px 28px 28px 28px;
+  border-right: 1px solid #ededed;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 36px;
+  color: #232323;
+  letter-spacing: 0.01em;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.menu li {
+  font-size: 1.08rem;
+  color: #232323;
+  cursor: pointer;
+  padding: 4px 0;
+  border-radius: 7px;
+  transition: background 0.13s, color 0.13s;
+}
+
+.menu li:hover,
+.menu li:focus {
+  background: #e0e7ef;
+  color: #17427f;
+}
+
+.logout {
+  color: #d13c3c;
+  font-weight: 600;
+}
+
+.adminOption {
+  color: #1764a0;
+  font-weight: 600;
+  border: 1px solid #b2d1fa;
+  background: #eafdff;
+  margin-top: 22px;
+  text-align: center;
+}
+
+.profileMain {
+  flex: 3 1 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  min-height: 400px;
+  padding: 32px 0;
+}
+
+.profileCard {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px #00000011;
+  padding: 38px 46px 36px 46px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  min-width: 300px;
+  min-height: 300px;
+  margin-bottom: 30px;
+}
+
+.editIcon {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.12s;
+}
+.editIcon:hover { opacity: 1; }
+
+.avatar {
+  margin-bottom: 24px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userName {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #212121;
+  margin-bottom: 5px;
+}
+
+.userEmail {
+  font-size: 1.02rem;
+  color: #646464;
+  margin-bottom: 12px;
+}
+
+/* Compras */
+.innerContainer {
+  width: 100%;
+  max-width: 700px;
+}
+
+.contentTittle {
+  margin-top: 24px;
+  margin-bottom: 18px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #313c4a;
+  letter-spacing: 0.01em;
+}
+
+.containerTable {
+  margin-bottom: 35px;
+}
+
+.item {
+  background: #f7fafd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px #0001;
+  padding: 16px 18px 8px 18px;
+}
+
+.containerData {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 36px;
+}
+
+.productosSeccion {
+  flex: 1;
+}
+
+.productosSeccion ul {
+  margin: 6px 0 0 0;
+  padding-left: 19px;
+  font-size: 1rem;
+}
+
+.totalSeccion {
+  flex: 0 0 180px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.text {
+  color: #bdbdbd;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-top: 40px;
+}
