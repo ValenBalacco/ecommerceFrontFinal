@@ -1,35 +1,36 @@
-import Header from "../../../ui/Header/Navbar";
-import Footer from "../../../ui/Footer/Footer";
-import styles from "./ScreenWomen.module.css";
-import CardProducts from "../../../ui/Cards/CardProducts/CardProducts";
-import SidebarFilter from "../../../ui/SidebarFilter/SidebarFilter";
+import Navbar from "../../ui/Header/Navbar";
+import Footer from "../../ui/Footer/Footer";
+import styles from "./ScreenClothes.module.css";
+import CardProducts from "../../ui/Cards/CardProducts/CardProducts";
+import SidebarFilter from "../../ui/SidebarFilter/SidebarFilter";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Detalle } from "../../../../types";
-import { ServiceDetalle } from "../../../../services";
-import { useFilterStore } from "../../../../store/filterStore";
+import { Detalle } from "../../../types";
+import { ServiceDetalle } from "../../../services";
+import { useFilterStore } from "../../../store/filterStore";
 
-const ScreenWomen = () => {
-  const [productosMujer, setProductosMujer] = useState<Detalle[]>([]);
+const ScreenClothes = () => {
+  const [productosRopa, setProductosRopa] = useState<Detalle[]>([]);
   const [inputText, setInputText] = useState<string>("");
   const { orden, categoria, tipoProducto, talle, minPrecio, maxPrecio } =
     useFilterStore();
 
   useEffect(() => {
     const detalleService = new ServiceDetalle();
-    // Trae todos los detalles y filtra por género en el front
+    // Trae todos los detalles y filtra por categoría "ROPA" en el front
     detalleService
       .getDetalles()
       .then((detalles) => {
-        const soloMujeres = detalles.filter(
-          (det) => det.producto?.sexo === "FEMENINO"
+        const soloRopa = detalles.filter(
+          (det) =>
+            det.producto?.categoria?.nombre?.toLowerCase() === "ropa"
         );
-        setProductosMujer(soloMujeres);
+        setProductosRopa(soloRopa);
       })
-      .catch(() => setProductosMujer([]));
+      .catch(() => setProductosRopa([]));
   }, []);
 
-  const productosFiltrados = productosMujer.filter((producto) => {
+  const productosFiltrados = productosRopa.filter((producto) => {
     const nombre = producto.producto.nombre?.toLowerCase() ?? "";
     const coincideBusqueda = nombre.includes(inputText.toLowerCase());
 
@@ -47,7 +48,6 @@ const ScreenWomen = () => {
         ? talle.includes(producto.talle.talle.toLowerCase())
         : true);
 
-    // CAMBIO: precio ahora es producto.precios?.[0]?.precioVenta
     const precioVenta = producto.precios?.[0]?.precioVenta ?? 0;
 
     const coincideMinPrecio = minPrecio === null || precioVenta >= minPrecio;
@@ -78,30 +78,31 @@ const ScreenWomen = () => {
   const handleChangeInputSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
+
   return (
-    <div className={styles.screenWomen}>
-      <Header />
+    <div className={styles.screenClothes}>
+      <Navbar />
 
       <div className={styles.bannerImages}>
         <img
-          src="https://nikearprod.vtexassets.com/arquivos/ids/1336341-1000-1000?v=638730634456330000&width=1000&height=1000&aspect=true"
-          alt=""
+          src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80"
+          alt="Banner Ropa 1"
         />
         <img
-          src="https://nikearprod.vtexassets.com/arquivos/ids/1265747-1000-1000?v=638697032679300000&width=1000&height=1000&aspect=true"
-          alt=""
+          src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=600&q=80"
+          alt="Banner Ropa 2"
         />
         <img
-          src="https://nikearprod.vtexassets.com/arquivos/ids/1291643-1000-1000?v=638723801035300000&width=1000&height=1000&aspect=true"
-          alt=""
+          src="https://images.unsplash.com/photo-1463107971871-fbac9ddb920f?auto=format&fit=crop&w=600&q=80"
+          alt="Banner Ropa 3"
         />
       </div>
 
       <div className={styles.mainContent}>
-        <div className={styles.sidebar}>
+        <aside className={styles.sidebar}>
           <SidebarFilter />
-        </div>
-        <div className={styles.productsSection}>
+        </aside>
+        <section className={styles.productsSection}>
           <div className={styles.searchBar}>
             <input
               value={inputText}
@@ -112,11 +113,11 @@ const ScreenWomen = () => {
             <Search />
           </div>
           <div className={styles.productCards}>
-            {productosOrdenados.map((producto: Detalle) => (
+            {productosOrdenados.map((producto) => (
               <CardProducts key={producto.id} products={producto} />
             ))}
           </div>
-        </div>
+        </section>
       </div>
 
       <Footer />
@@ -124,4 +125,4 @@ const ScreenWomen = () => {
   );
 };
 
-export default ScreenWomen;
+export default ScreenClothes;

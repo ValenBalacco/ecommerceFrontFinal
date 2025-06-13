@@ -97,7 +97,11 @@ const ScreenHome = () => {
             <FaShoePrints />
             <span>Zapatillas</span>
           </div>
-          <div className={styles.categoryCard}>
+          <div
+            className={styles.categoryCard}
+            onClick={() => goToCategory("clothes")}
+            style={{ cursor: "pointer" }}
+          >
             <FaTshirt />
             <span>Ropa</span>
           </div>

@@ -17,9 +17,15 @@ const ScreenMen = () => {
 
   useEffect(() => {
     const detalleService = new ServiceDetalle();
+    // Trae todos los detalles y filtra por género en el front
     detalleService
-      .getDetallesGeneroProduct("MASCULINO")
-      .then(setProductosHombre)
+      .getDetalles()
+      .then((detalles) => {
+        const soloHombres = detalles.filter(
+          (det) => det.producto?.sexo === "MASCULINO"
+        );
+        setProductosHombre(soloHombres);
+      })
       .catch(() => setProductosHombre([]));
   }, []);
 

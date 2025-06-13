@@ -1,0 +1,69 @@
+.screenClothes {
+  min-height: 100vh;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+}
+
+.bannerImages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.bannerImages img {
+  width: 32%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+}
+
+.mainContent {
+  display: flex;
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.sidebar {
+  width: 230px;
+}
+
+.productsSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+}
+
+.searchBar input[type="search"] {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.searchBar input[type="search"]:focus {
+  border: 1.5px solid #888;
+}
+
+.productCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.5rem;
+}

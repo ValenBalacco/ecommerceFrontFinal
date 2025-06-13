@@ -10,6 +10,8 @@ import ScreenAdmin from "../components/screens/ScreenAdmin/ScreenAdmin";
 import { ScreenUser } from "../components/screens/ScreenUser/ScreenUser";
 import { ScreenDestacados } from "../components/screens/ScreenCategories/ScreenDestacados/ScreenDestacados";
 
+import ScreenClothes from "../components/screens/ScreenClothes/ScreenClothes";
+
 const AppRouter = () => {
 
 	return (
@@ -49,6 +51,10 @@ const AppRouter = () => {
 			<Route
 				path="/niño"
 				element={<ScreenKids />}
+			/>
+			<Route
+				path="/clothes"
+				element={<ScreenClothes />}
 			/>
 			<Route
 				path="/destacados"

@@ -1,5 +1,5 @@
 .screenHome {
-  background: #fafbfc;
+  background: #f7f8fa;
   min-height: 100vh;
 }
 .heroSection {
@@ -15,6 +15,7 @@
   object-fit: cover;
   border-radius: 20px;
   margin-top: 22px;
+  box-shadow: 0 2px 16px 0 #bfc3d422;
 }
 .quickAccessSection {
   margin: 0 auto 28px auto;
@@ -30,9 +31,10 @@
 .quickAccessTitle {
   font-size: 17px;
   font-weight: 600;
-  color: #222;
+  color: #23242b;
   margin-bottom: 6px;
   display: block;
+  letter-spacing: 0.01em;
 }
 .quickAccessIcons {
   display: flex;
@@ -40,14 +42,19 @@
   margin-top: 4px;
 }
 .quickAccessIcons img {
-  background: #fff;
-  border-radius: 11px;
+  background: linear-gradient(120deg, #f7f8fa 80%, #eaeaee 100%);
+  border-radius: 13px;
   width: 58px;
   height: 58px;
   object-fit: contain;
-  box-shadow: 0 1px 8px 0 rgba(60,60,60,0.04);
+  box-shadow: 0 1px 8px 0 #d9dbe7;
   padding: 8px;
-  border: 1px solid #f2f3f7;
+  border: 1.2px solid #eaeaee;
+  transition: box-shadow 0.16s, border 0.13s;
+}
+.quickAccessIcons img:hover {
+  box-shadow: 0 4px 18px 0 #bfc3d433;
+  border: 1.2px solid #bfc3d4;
 }
 .categoryRow {
   display: flex;
@@ -61,24 +68,26 @@
   flex-direction: column;
   align-items: center;
   margin: 0 2px;
-  padding: 10px 0 6px 0;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 1px 8px 0 rgba(60,60,60,0.04);
-  transition: box-shadow .14s, transform .11s;
+  padding: 12px 0 8px 0;
+  background: linear-gradient(90deg, #e1e2e9 0%, #f7f8fa 100%);
+  border-radius: 14px;
+  box-shadow: 0 1px 8px 0 #e8e9f3;
+  transition: box-shadow .15s, transform .11s;
   cursor: pointer;
   font-size: 15px;
-  color: #222;
+  color: #23242b;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 .categoryCard:hover {
-  box-shadow: 0 2px 16px 0 rgba(32,146,136,0.10);
+  box-shadow: 0 4px 16px 0 #bfc3d433;
   transform: translateY(-2px) scale(1.04);
 }
 .categoryCard svg {
   width: 48px;
   height: 48px;
   margin-bottom: 4px;
-  color: #222;
+  color: #44455a;
 }
 .featuredSection {
   margin: 36px auto 0 auto;
@@ -89,7 +98,8 @@
   font-size: 21px;
   font-weight: 700;
   margin-bottom: 15px;
-  color: #222;
+  color: #23242b;
+  letter-spacing: 0.01em;
 }
 @media (max-width: 800px) {
   .quickAccessRow, .categoryRow {

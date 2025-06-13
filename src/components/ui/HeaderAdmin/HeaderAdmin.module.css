@@ -1,39 +1,82 @@
 .headerContainer {
-	display: flex;
-	justify-content: space-between;
-	font-family: "Unbounded", sans-serif;
-	background: #209288 20%;
-	color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Unbounded", sans-serif;
+  background: linear-gradient(90deg, #ededf2 0%, #d1d2da 100%);
+  color: #232328;
+  box-shadow: 0 2px 16px 0 #d1d2da18;
+  padding: 0.5rem 0 0.5rem 0;
+  min-height: 68px;
 }
 
 .logo {
-	margin: 8px;
-	margin-left: 20px;
+  margin: 8px 0 8px 22px;
+  display: flex;
+  align-items: center;
 }
 .logo img {
-	width: 60px;
-	cursor: pointer;
+  width: 50px;
+  cursor: pointer;
+  border-radius: 12px;
+  filter: grayscale(0.12) brightness(0.97);
+  box-shadow: 0 2px 12px #e7e7e7;
+  transition: box-shadow 0.13s, filter 0.14s;
+}
+.logo img:hover {
+  box-shadow: 0 6px 22px #bfc1d033;
+  filter: grayscale(0.06) brightness(1.01);
 }
 
 .navContainer {
-	display: flex;
-	gap: 10rem;
-	justify-content: center;
-	align-items: center;
-	font-weight: 400;
+  display: flex;
+  gap: 7rem;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
 }
-.navContainer p {
-	cursor: pointer;
-	transition: transform 0.3s ease;
-}
-.navContainer p:hover {
-	transform: scale(1.2);
+
+.navContainer h2 {
+  font-size: 1.45rem;
+  color: #3d3e44;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  text-shadow: 0 2px 12px #e3e4e8;
 }
 
 .iconsContainer {
-	display: flex;
-	align-items: center;
-	gap: 3rem;
-	margin-right: 30px;
-	cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  margin-right: 23px;
+  cursor: pointer;
+}
+
+.iconsContainer > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 6px;
+  transition: background 0.11s;
+}
+.iconsContainer > div:hover {
+  background: #ececf2;
+}
+
+@media (max-width: 900px) {
+  .navContainer {
+    gap: 1.7rem;
+  }
+  .headerContainer {
+    min-height: 54px;
+    padding: 0.1rem 0;
+  }
+  .logo img {
+    width: 38px;
+  }
+  .iconsContainer {
+    gap: 1.2rem;
+    margin-right: 6px;
+  }
 }

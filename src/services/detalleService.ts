@@ -76,4 +76,14 @@ export class ServiceDetalle {
     });
     return response.data;
   }
+
+  // MÉTODO FALTANTE: Buscar detalles por género del producto
+  public async getDetallesGeneroProduct(genero: string): Promise<Detalle[]> {
+    // Ajusta el endpoint según tu backend
+    const url = `${this.baseURL}/genero/${encodeURIComponent(genero)}`;
+    const response: AxiosResponse<Detalle[]> = await axios.get(url, {
+      headers: this.getAuthHeaders(),
+    });
+    return response.data;
+  }
 }

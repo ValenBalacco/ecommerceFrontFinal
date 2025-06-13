@@ -1,14 +1,15 @@
-import { useCallback } from "react";
+import { useCallback, useState, ChangeEvent, KeyboardEvent, MouseEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCart, User, Search } from "lucide-react";
 import "./Navbar.css";
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const [search, setSearch] = useState<string>("");
 
-  // Función para manejar el click en el icono de usuario
+  // Manejo click usuario
   const handleUserClick = useCallback(
-    (e) => {
+    (e: MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
       const userString = localStorage.getItem("usuario");
       if (userString) {
@@ -19,6 +20,24 @@ export default function Navbar() {
     },
     [navigate]
   );
+
+  // Manejo input búsqueda
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
+  // Handler para buscar al presionar Enter o el icono
+  const handleSearch = (e: KeyboardEvent<HTMLInputElement> | MouseEvent<SVGSVGElement>) => {
+    if (
+      ("key" in e && e.key === "Enter") ||
+      e.type === "click"
+    ) {
+      if (search.trim() !== "") {
+        navigate(`/buscar?query=${encodeURIComponent(search)}`);
+        setSearch(""); // Limpiar input si quieres
+      }
+    }
+  };
 
   return (
     <header>
@@ -33,14 +52,20 @@ export default function Navbar() {
           <input
             type="text"
             placeholder="Buscar ropa, zapatillas..."
-            className=""
+            value={search}
+            onChange={handleInputChange}
+            onKeyDown={handleSearch}
           />
-          <Search className="search-icon" />
+          <Search
+            className="search-icon"
+            onClick={handleSearch}
+            style={{ cursor: "pointer" }}
+          />
         </div>
 
         {/* Iconos del perfil y carrito */}
         <div className="icon-container">
-          <a href="#" onClick={handleUserClick} className="">
+          <a href="#" onClick={handleUserClick}>
             <User size={26} />
           </a>
           <Link to="/cart" className="cart">

@@ -10,6 +10,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: box-shadow 0.17s, border 0.17s;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px #e0e1e9;
+  background: linear-gradient(120deg, #f7f8fa 80%, #eaeaee 100%);
+  margin: 0.5rem;
+}
+
+.swiperSlide:hover {
+  box-shadow: 0 6px 24px #bfc3d033;
+  border: 1.4px solid #bfc3d4;
 }
 
 @media screen and (min-width: 1024px) {

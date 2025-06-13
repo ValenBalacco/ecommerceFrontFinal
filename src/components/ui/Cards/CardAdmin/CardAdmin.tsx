@@ -19,7 +19,7 @@ const CardAdmin: FC<IProps> = ({ producto, onEdit }) => {
                   ? item.imgs[0].url
                   : "default-image-url"
               }
-              alt={item.imgs && item.imgs.length > 0 && item.imgs[0].alt ? item.imgs[0].alt : "Imagen del producto"}
+          
               className={styles.image}
             />
             <h3 className={styles.title}>
@@ -44,7 +44,7 @@ const CardAdmin: FC<IProps> = ({ producto, onEdit }) => {
               <button type="button" className={styles.deleteButton}>
                 Eliminar
               </button>
-              <button type="button" onClick={() => onEdit(item)}>
+              <button type="button" className={styles.editButton} onClick={() => onEdit(item)}>
                 Editar
               </button>
             </div>

@@ -17,9 +17,15 @@ const ScreenKids = () => {
 
   useEffect(() => {
     const detalleService = new ServiceDetalle();
+    // Trae todos los detalles y filtra por género en el front
     detalleService
-      .getDetallesGeneroProduct("INFANTIL")
-      .then(setProductosInfantil)
+      .getDetalles()
+      .then((detalles) => {
+        const soloInfantil = detalles.filter(
+          (det) => det.producto?.sexo === "INFANTIL"
+        );
+        setProductosInfantil(soloInfantil);
+      })
       .catch(() => setProductosInfantil([]));
   }, []);
 

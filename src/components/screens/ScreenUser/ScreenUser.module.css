@@ -1,3 +1,93 @@
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.menuItem {
+  padding: 10px 20px 10px 18px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 2px;
+  font-size: 1.07rem;
+  transition: 
+    background 0.13s, 
+    color 0.13s, 
+    box-shadow 0.15s, 
+    border 0.15s, 
+    transform 0.13s;
+  position: relative;
+  color: #232328;
+  background: none;
+  border: none;
+  outline: none;
+  user-select: none;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  min-width: 0;
+  box-shadow: 0 0.5px 2px 0 #ececec;
+}
+
+.activeSection {
+  background: linear-gradient(90deg, #21222b 0%, #4e5166 100%);
+  color: #fff !important;
+  font-weight: 800;
+  box-shadow: 0 2px 12px 0 #21222b1a, 0 0px 0 #fff;
+  border-left: 5px solid #888cae;
+  border-right: 2px solid #bfc3d4;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 8px #20222c29;
+  z-index: 1;
+  transform: scale(1.04);
+}
+
+.menuItem:hover:not(.activeSection),
+.menuItem:focus:not(.activeSection) {
+  background: #f0f2f6;
+  color: #333648;
+  box-shadow: 0 2px 7px #bfc3d455;
+  transform: translateX(2px) scale(1.01);
+}
+
+.logout {
+  color: #d13c3c;
+  font-weight: bold;
+  margin-top: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 22px;
+  border-radius: 7px;
+  transition: background 0.13s, color 0.13s;
+}
+
+.logout:hover {
+  background: #f6eaea;
+  color: #a72727;
+}
+
+.adminOption {
+  color: #4e5166;
+  font-weight: bold;
+  background: #f2f5fa;
+  border: 1.4px solid #e1e3ec;
+  margin-top: 14px;
+  text-align: center;
+  border-radius: 7px;
+  cursor: pointer;
+  padding: 10px 22px;
+  transition: background 0.13s, color 0.13s, border 0.13s;
+}
+
+.adminOption:hover {
+  background: #e4e7f2;
+  color: #232328;
+  border-color: #cfd4e3;
+}
+
 .profileLayout {
   display: flex;
   min-height: 80vh;
@@ -28,44 +118,6 @@
   letter-spacing: 0.01em;
 }
 
-.menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.menu li {
-  font-size: 1.08rem;
-  color: #232323;
-  cursor: pointer;
-  padding: 4px 0;
-  border-radius: 7px;
-  transition: background 0.13s, color 0.13s;
-}
-
-.menu li:hover,
-.menu li:focus {
-  background: #e0e7ef;
-  color: #17427f;
-}
-
-.logout {
-  color: #d13c3c;
-  font-weight: 600;
-}
-
-.adminOption {
-  color: #1764a0;
-  font-weight: 600;
-  border: 1px solid #b2d1fa;
-  background: #eafdff;
-  margin-top: 22px;
-  text-align: center;
-}
-
 .profileMain {
   flex: 3 1 600px;
   display: flex;
@@ -90,15 +142,16 @@
   margin-bottom: 30px;
 }
 
-.editIcon {
+.eyeIcon {
   position: absolute;
   top: 18px;
   right: 18px;
+  z-index: 2;
   cursor: pointer;
-  opacity: 0.7;
+  opacity: 0.8;
   transition: opacity 0.12s;
 }
-.editIcon:hover { opacity: 1; }
+.eyeIcon:hover { opacity: 1; }
 
 .avatar {
   margin-bottom: 24px;
@@ -123,7 +176,6 @@
   margin-bottom: 12px;
 }
 
-/* Compras */
 .innerContainer {
   width: 100%;
   max-width: 700px;
@@ -181,4 +233,42 @@
   font-size: 1.1rem;
   text-align: center;
   margin-top: 40px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.modalUsuario {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  min-width: 340px;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.12);
+  position: relative;
+  max-width: 90vw;
+}
+.datosUsuarioLista {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+.datosUsuarioLista li {
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+.botonCerrarUsuario {
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
 }
