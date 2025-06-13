@@ -113,3 +113,12 @@ export interface Precio {
   descuento: Descuento;
   descuentoId: number;
 }
+
+export interface ItemCarrito {
+  title: string;
+  quantity: number;
+  unit_price: number;
+  picture_url?: string;
+  category_id?: string;
+  currency_id?: string;
+}

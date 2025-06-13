@@ -11,6 +11,9 @@ import { ScreenUser } from "../components/screens/ScreenUser/ScreenUser";
 import { ScreenDestacados } from "../components/screens/ScreenCategories/ScreenDestacados/ScreenDestacados";
 
 import ScreenClothes from "../components/screens/ScreenClothes/ScreenClothes";
+import CheckoutSuccess from "../components/screens/CheckoutSuccess";
+import CheckoutFailure from "../components/screens/CheckoutFailure";
+import CheckoutPending from "../components/screens/CheckoutPending";
 
 const AppRouter = () => {
 
@@ -64,8 +67,12 @@ const AppRouter = () => {
 				path="/cart"
 				element={<ScreenCart />}
 			/>
-
+    {/* Rutas de Mercado Pago */}
+    <Route path="/checkout/success" element={<CheckoutSuccess />} />
+    <Route path="/checkout/failure" element={<CheckoutFailure />} />
+    <Route path="/checkout/pending" element={<CheckoutPending />} />
 		</Routes>
+		
 	);
 };
 

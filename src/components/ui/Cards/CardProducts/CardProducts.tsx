@@ -3,6 +3,8 @@ import { FC } from "react";
 import { Detalle } from "../../../../types";
 import { useNavigate } from "react-router";
 import { Descuento } from "../../../../types";
+import { useCartStore } from "../../../../store/useCartStore";
+import Swal from "sweetalert2";
 
 interface IProps {
   products: Detalle;
@@ -40,6 +42,38 @@ const CardProducts: FC<IProps> = ({ products }) => {
   }
 
   const imgPrincipal = products.imgs?.[0];
+
+  // --- NUEVO: función segura para agregar al carrito ---
+  const handleAddToCart = () => {
+    const nombreProducto = products.producto?.nombre ?? null;
+    const precioVenta = products.precios?.[0]?.precioVenta;
+
+    if (
+      !nombreProducto ||
+      typeof precioVenta !== "number" ||
+      isNaN(precioVenta) ||
+      precioVenta <= 0
+    ) {
+      Swal.fire(
+        "Error",
+        "No se puede agregar un producto sin nombre o con precio inválido.",
+        "error"
+      );
+      return;
+    }
+
+    const itemCarrito = {
+      detalleId: products.id,
+      nombre: nombreProducto,
+      imagen: products.imgs?.[0]?.url || "",
+      precio: precioVenta,
+      cantidad: 1,
+      talle: products.talle?.talle,
+    };
+
+    useCartStore.getState().agregar(itemCarrito);
+    Swal.fire("¡Agregado!", "El producto fue agregado al carrito.", "success");
+  };
 
   return (
     <div className={styles.productCard}>
@@ -92,6 +126,12 @@ const CardProducts: FC<IProps> = ({ products }) => {
             onClick={() => navigate(`/product/${products.id}`)}
           >
             Ver más
+          </button>
+          <button
+            className={styles.productButton}
+            onClick={handleAddToCart}
+          >
+            Agregar al carrito
           </button>
         </div>
       </div>
