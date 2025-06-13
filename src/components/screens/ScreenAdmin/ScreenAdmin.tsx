@@ -7,9 +7,10 @@ import Footer from "../../ui/Footer/Footer";
 import { Categorias } from "./Categorias/Categorias";
 import { Usuarios } from "./Usuarios/Usuarios";
 import { Ordenes } from "./Ordenes/Ordenes";
+import { Talles } from "./Talle/Talle";
 import { ServiceDetalle } from "../../../services";
 
-type Tab = "productos" | "categorias" | "usuarios" | "ordenes"; // Agrega "ordenes"
+type Tab = "productos" | "categorias" | "talles" | "usuarios" | "ordenes";
 
 const ScreenAdmin = () => {
   const setDetalle = detalleStore((state) => state.setDetalle);
@@ -21,10 +22,12 @@ const ScreenAdmin = () => {
         return <Productos />;
       case "categorias":
         return <Categorias />;
+      case "talles":
+        return <Talles />;
       case "usuarios":
         return <Usuarios />;
       case "ordenes":
-        return <Ordenes />; // NUEVO
+        return <Ordenes />;
       default:
         return null;
     }
@@ -61,6 +64,12 @@ const ScreenAdmin = () => {
               onClick={() => setActiveTab("categorias")}
             >
               Categorías
+            </button>
+            <button
+              className={`${activeTab === "talles" ? styles.active : ""}`}
+              onClick={() => setActiveTab("talles")}
+            >
+              Talles
             </button>
             <button
               className={`${activeTab === "usuarios" ? styles.active : ""}`}

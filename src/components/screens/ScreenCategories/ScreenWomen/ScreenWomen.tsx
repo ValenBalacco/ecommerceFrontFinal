@@ -3,7 +3,6 @@ import Footer from "../../../ui/Footer/Footer";
 import styles from "./ScreenWomen.module.css";
 import CardProducts from "../../../ui/Cards/CardProducts/CardProducts";
 import SidebarFilter from "../../../ui/SidebarFilter/SidebarFilter";
-import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Detalle } from "../../../../types";
 import { ServiceDetalle } from "../../../../services";
@@ -11,7 +10,6 @@ import { useFilterStore } from "../../../../store/filterStore";
 
 const ScreenWomen = () => {
   const [productosMujer, setProductosMujer] = useState<Detalle[]>([]);
-  const [inputText, setInputText] = useState<string>("");
   const { orden, categoria, tipoProducto, talle, minPrecio, maxPrecio } =
     useFilterStore();
 
@@ -30,9 +28,6 @@ const ScreenWomen = () => {
   }, []);
 
   const productosFiltrados = productosMujer.filter((producto) => {
-    const nombre = producto.producto.nombre?.toLowerCase() ?? "";
-    const coincideBusqueda = nombre.includes(inputText.toLowerCase());
-
     const coincideCategoria =
       categoria.length === 0 ||
       categoria.includes(producto.producto.categoria?.nombre?.toLowerCase() ?? "");
@@ -54,7 +49,6 @@ const ScreenWomen = () => {
     const coincideMaxPrecio = maxPrecio === null || precioVenta <= maxPrecio;
 
     return (
-      coincideBusqueda &&
       coincideCategoria &&
       coincideTipo &&
       coincideTalle &&
@@ -75,42 +69,17 @@ const ScreenWomen = () => {
     return 0;
   });
 
-  const handleChangeInputSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputText(e.target.value);
-  };
   return (
     <div className={styles.screenWomen}>
       <Header />
 
-      <div className={styles.bannerImages}>
-        <img
-          src="https://nikearprod.vtexassets.com/arquivos/ids/1336341-1000-1000?v=638730634456330000&width=1000&height=1000&aspect=true"
-          alt=""
-        />
-        <img
-          src="https://nikearprod.vtexassets.com/arquivos/ids/1265747-1000-1000?v=638697032679300000&width=1000&height=1000&aspect=true"
-          alt=""
-        />
-        <img
-          src="https://nikearprod.vtexassets.com/arquivos/ids/1291643-1000-1000?v=638723801035300000&width=1000&height=1000&aspect=true"
-          alt=""
-        />
-      </div>
+      <div className={styles.backgroundImage}></div>
 
       <div className={styles.mainContent}>
         <div className={styles.sidebar}>
           <SidebarFilter />
         </div>
         <div className={styles.productsSection}>
-          <div className={styles.searchBar}>
-            <input
-              value={inputText}
-              onChange={handleChangeInputSearch}
-              type="search"
-              placeholder="Buscar producto"
-            />
-            <Search />
-          </div>
           <div className={styles.productCards}>
             {productosOrdenados.map((producto: Detalle) => (
               <CardProducts key={producto.id} products={producto} />

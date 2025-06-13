@@ -1,4 +1,4 @@
-.screenWomen {
+.screenMen {
   min-height: 100vh;
   position: relative;
   background: #f8fafd;
@@ -12,12 +12,11 @@
   z-index: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80');
-  /* Imagen mujer de fondo, puedes cambiar la url si lo deseas */
+  background-image: url('https://c4.wallpaperflare.com/wallpaper/912/392/862/chaqueta-hombre-moreno-traje-wallpaper-preview.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.13;
+  opacity: 0.18;     
   pointer-events: none;
 }
 
@@ -28,6 +27,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 30px 18px 0 18px;
+  background: transparent; 
 }
 
 .sidebar {
@@ -46,6 +46,7 @@
   flex-wrap: wrap;
   gap: 18px;
   margin-top: 10px;
+  background: transparent; /* Asegura que no tape el fondo */
 }
 
 @media (max-width: 900px) {

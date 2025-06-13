@@ -1,41 +1,46 @@
 .swiperContainer {
   width: 100%;
+  max-width: 1100px;
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  /* El Swiper por defecto es block, no flex, así que puedes quitar display:flex si quieres */
 }
 
 .swiperSlide {
   display: flex;
   justify-content: center;
-  align-items: center;
-  transition: box-shadow 0.17s, border 0.17s;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px #e0e1e9;
-  background: linear-gradient(120deg, #f7f8fa 80%, #eaeaee 100%);
-  margin: 0.5rem;
+  align-items: stretch;           /* Importante: stretch para igualar altura */
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0 8px;                 /* Espacio entre cards */
 }
 
-.swiperSlide:hover {
-  box-shadow: 0 6px 24px #bfc3d033;
-  border: 1.4px solid #bfc3d4;
-}
-
-@media screen and (min-width: 1024px) {
-  .swiperSlide {
-    width: 25%;
+/* No usar width en .swiperSlide, Swiper lo maneja con slidesPerView */
+@media screen and (max-width: 1023px) {
+  .swiperContainer {
+    max-width: 98vw;
   }
 }
-
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-  .swiperSlide {
-    width: 50%;
-  }
-}
-
 @media screen and (max-width: 767px) {
   .swiperSlide {
-    width: 100%;
+    padding: 0;                  /* Opcional: menos padding en mobile */
   }
+}
+
+/* Opcional, pero útil para centrar las flechas */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #23232b !important;
+  font-size: 32px !important;
+  background: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  box-shadow: 0 4px 16px #0002;
+  top: 45%;
+  transition: background 0.18s, box-shadow 0.18s;
+  z-index: 2;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: #ececec;
 }

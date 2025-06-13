@@ -43,7 +43,7 @@ const CardProducts: FC<IProps> = ({ products }) => {
 
   const imgPrincipal = products.imgs?.[0];
 
-  // --- NUEVO: función segura para agregar al carrito ---
+
   const handleAddToCart = () => {
     const nombreProducto = products.producto?.nombre ?? null;
     const precioVenta = products.precios?.[0]?.precioVenta;
@@ -87,7 +87,6 @@ const CardProducts: FC<IProps> = ({ products }) => {
         {imgPrincipal ? (
           <img
             src={imgPrincipal.url || "/fallback.jpg"}
-            alt={imgPrincipal.alt || "Imagen del producto"}
             onError={(e) => (e.currentTarget.src = "/fallback.jpg")}
           />
         ) : (

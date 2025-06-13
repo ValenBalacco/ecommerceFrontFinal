@@ -4,7 +4,6 @@ import { Producto } from "../../../../types";
 import { AdminTable } from "../../../ui/Tables/AdminTable/AdminTable";
 import ModalCrearEditarFormAdmin from "../../../ui/Forms/ModalCrearEditarProducto/ModalCrearEditarProducto";
 import { ServiceProducto } from "../../../../services/productService";
-import { ModalCrearTalle } from "../../../ui/Forms/ModalCrearTalle/ModalCrearTalle";
 import { Detalle } from "../../../../types";
 import { ServiceDetalle } from "../../../../services";
 import { ImagePlus, Pencil, Trash2 } from "lucide-react";
@@ -16,7 +15,6 @@ export const Productos = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [productos, setProductos] = useState<Producto[]>([]);
   const [productoActivo, setProductoActivo] = useState<Producto | null>(null);
-  const [modalTalle, setModalTalle] = useState<boolean>(false);
   const [modalDetalle, setModalDetalle] = useState<boolean>(false);
   const [modalAddImagen, setModalAddImagen] = useState<boolean>(false);
   const [productoExpandido, setProductoExpandido] = useState<number | null>(null);
@@ -37,7 +35,6 @@ export const Productos = () => {
 
   useEffect(() => {
     fetchProductos();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAdd = () => {
@@ -100,7 +97,6 @@ export const Productos = () => {
     }
   };
 
-  // Cambiado: ahora filtra en frontend
   const getDetallesProductos = async (productoId: number) => {
     try {
       const todosLosDetalles = await detalleService.getDetalles();
@@ -119,10 +115,10 @@ export const Productos = () => {
 
   const toggleDetalle = async (id: number) => {
     if (productoExpandido === id) {
-      setProductoExpandido(null); // Si ya está expandido, cerrar
+      setProductoExpandido(null);
     } else {
       if (!detallesPorProducto[id]) {
-        await getDetallesProductos(id); // Si no está cargado, traer detalles
+        await getDetallesProductos(id);
       }
       setProductoExpandido(id);
     }
@@ -137,7 +133,7 @@ export const Productos = () => {
       if (producto.id) {
         await productoService.editarProducto(producto.id, {
           nombre: producto.nombre,
-          categoriaId: producto.categoriaId, // solo enviar ID
+          categoriaId: producto.categoriaId,
           tipoProducto: producto.tipoProducto,
           sexo: producto.sexo,
         });
@@ -148,12 +144,12 @@ export const Productos = () => {
         const { id, categoria, detalles, itemsOrden, ...productoSinExtras } = producto;
         const nuevoProducto = await productoService.crearProducto({
           ...productoSinExtras,
-          categoriaId: producto.categoriaId, // solo enviar ID
+          categoriaId: producto.categoriaId,
         });
         setProductos((prev) => [...prev, nuevoProducto]);
       }
       setModalOpen(false);
-      fetchProductos(); // Para refrescar la lista después de crear/editar
+      fetchProductos();
     } catch (error) {
       console.error("Error al guardar el Producto", error);
     }
@@ -166,15 +162,7 @@ export const Productos = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.containerButtonsFunctions}>
-        <button
-          onClick={() => {
-            setModalTalle(true);
-          }}
-        >
-          Añadir Talle
-        </button>
-      </div>
+      {/* Botón Añadir Talle eliminado */}
       <AdminTable<Producto>
         data={productos}
         onAdd={handleAdd}
@@ -251,19 +239,11 @@ export const Productos = () => {
           </div>
         )}
       />
-      {/* Quita la paginación si no la necesitas */}
       {modalOpen && (
         <ModalCrearEditarFormAdmin
           closeModal={handleCloseModal}
           onSubmit={handleSubmit}
           producto={productoActivo}
-        />
-      )}
-      {modalTalle && (
-        <ModalCrearTalle
-          closeModal={() => {
-            setModalTalle(false);
-          }}
         />
       )}
       {modalDetalle && productoActivoDetalle && (

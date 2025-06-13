@@ -1,39 +1,33 @@
-import { Search } from "lucide-react";
 import Header from "../../../ui/Header/Navbar";
-import SidebarFilter from "../../../ui/SidebarFilter/SidebarFilter";
-import styles from "./ScreenDestacados.module.css";
-import CardProducts from "../../../ui/Cards/CardProducts/CardProducts";
 import Footer from "../../../ui/Footer/Footer";
-import { ServiceDetalle } from "../../../../services";
+import styles from "./ScreenNiño.module.css";
+import CardProducts from "../../../ui/Cards/CardProducts/CardProducts";
+import SidebarFilter from "../../../ui/SidebarFilter/SidebarFilter";
 import { useEffect, useState } from "react";
 import { Detalle } from "../../../../types";
+import { ServiceDetalle } from "../../../../services";
 import { useFilterStore } from "../../../../store/filterStore";
 
-export const ScreenDestacados = () => {
-  const [productosDestacados, setProductosDestacados] = useState<Detalle[]>([]);
-  const [inputText, setInputText] = useState<string>("");
-  const { orden, categoria, tipoProducto, talle, minPrecio, maxPrecio } = useFilterStore();
-  const detalleService = new ServiceDetalle();
-
-  const getProducts = async () => {
-    try {
-      const destacados = await detalleService.getProductosDestacados();
-      setProductosDestacados(destacados);
-    } catch (err) {
-      // Manejo de error opcional
-      setProductosDestacados([]);
-    }
-  };
+const ScreenNiño = () => {
+  const [productosInfantil, setProductosInfantil] = useState<Detalle[]>([]);
+  const { orden, categoria, tipoProducto, talle, minPrecio, maxPrecio } =
+    useFilterStore();
 
   useEffect(() => {
-    getProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const detalleService = new ServiceDetalle();
+    // Trae todos los detalles y filtra por género en el front
+    detalleService
+      .getDetalles()
+      .then((detalles) => {
+        const soloInfantil = detalles.filter(
+          (det) => det.producto?.sexo === "INFANTIL"
+        );
+        setProductosInfantil(soloInfantil);
+      })
+      .catch(() => setProductosInfantil([]));
   }, []);
 
-  const productosFiltrados = productosDestacados.filter((producto: Detalle) => {
-    const nombre = producto.producto.nombre?.toLowerCase() ?? "";
-    const coincideBusqueda = nombre.includes(inputText.toLowerCase());
-
+  const productosFiltrados = productosInfantil.filter((producto) => {
     const coincideCategoria =
       categoria.length === 0 ||
       categoria.includes(producto.producto.categoria?.nombre?.toLowerCase() ?? "");
@@ -48,13 +42,12 @@ export const ScreenDestacados = () => {
         ? talle.includes(producto.talle.talle.toLowerCase())
         : true);
 
-    // accede al precioVenta desde precios[0]
     const precioVenta = producto.precios?.[0]?.precioVenta ?? 0;
+
     const coincideMinPrecio = minPrecio === null || precioVenta >= minPrecio;
     const coincideMaxPrecio = maxPrecio === null || precioVenta <= maxPrecio;
 
     return (
-      coincideBusqueda &&
       coincideCategoria &&
       coincideTipo &&
       coincideTalle &&
@@ -75,27 +68,19 @@ export const ScreenDestacados = () => {
     return 0;
   });
 
-  const handleChangeInputSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputText(e.target.value);
-  };
-
   return (
-    <div className={styles.screenDestacados}>
+    <div
+      className={styles.screenKids}
+    >
       <Header />
+
+      <div className={styles.backgroundImage}></div>
+
       <div className={styles.mainContent}>
         <div className={styles.sidebar}>
           <SidebarFilter />
         </div>
         <div className={styles.productsSection}>
-          <div className={styles.searchBar}>
-            <input
-              value={inputText}
-              onChange={handleChangeInputSearch}
-              type="search"
-              placeholder="Buscar producto"
-            />
-            <Search />
-          </div>
           <div className={styles.productCards}>
             {productosOrdenados.map((producto: Detalle) => (
               <CardProducts key={producto.id} products={producto} />
@@ -103,7 +88,10 @@ export const ScreenDestacados = () => {
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );
 };
+
+export default ScreenNiño;

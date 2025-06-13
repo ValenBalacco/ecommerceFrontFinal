@@ -1,11 +1,10 @@
-import { useCallback, useState, ChangeEvent, KeyboardEvent, MouseEvent } from "react";
+import { useCallback, MouseEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ShoppingCart, User, Search } from "lucide-react";
+import { ShoppingCart, User } from "lucide-react";
 import "./Navbar.css";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const [search, setSearch] = useState<string>("");
 
   // Manejo click usuario
   const handleUserClick = useCallback(
@@ -21,24 +20,6 @@ export default function Navbar() {
     [navigate]
   );
 
-  // Manejo input búsqueda
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
-
-  // Handler para buscar al presionar Enter o el icono
-  const handleSearch = (e: KeyboardEvent<HTMLInputElement> | MouseEvent<SVGSVGElement>) => {
-    if (
-      ("key" in e && e.key === "Enter") ||
-      e.type === "click"
-    ) {
-      if (search.trim() !== "") {
-        navigate(`/buscar?query=${encodeURIComponent(search)}`);
-        setSearch(""); // Limpiar input si quieres
-      }
-    }
-  };
-
   return (
     <header>
       <div className="container">
@@ -47,20 +28,11 @@ export default function Navbar() {
           a
         </Link>
 
-        {/* Barra de búsqueda */}
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="Buscar ropa, zapatillas..."
-            value={search}
-            onChange={handleInputChange}
-            onKeyDown={handleSearch}
-          />
-          <Search
-            className="search-icon"
-            onClick={handleSearch}
-            style={{ cursor: "pointer" }}
-          />
+        {/* Mensaje de bienvenida */}
+        <div className="welcome-container">
+          <span className="welcome-text">
+            ¡Bienvenido a aShop! Encontrá la mejor moda para vos.
+          </span>
         </div>
 
         {/* Iconos del perfil y carrito */}

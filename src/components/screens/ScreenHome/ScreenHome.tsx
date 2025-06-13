@@ -7,6 +7,7 @@ import ProductCarousel from "../../ui/Carousel/ProductCarousel/ProductCarousel";
 import { ServiceDetalle } from "../../../services";
 import { FaChild, FaMale, FaFemale, FaShoePrints, FaTshirt, FaPercent } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ScreenHome = () => {
   const [productos, setProductos] = useState<Detalle[]>([]);
@@ -15,7 +16,7 @@ const ScreenHome = () => {
 
   useEffect(() => {
     fetchDetalles();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   const fetchDetalles = async () => {
@@ -27,9 +28,19 @@ const ScreenHome = () => {
     }
   };
 
-  // Función de navegación
+ 
   const goToCategory = (category: string) => {
     navigate(`/${category}`);
+  };
+
+  const handlePromoClick = () => {
+    Swal.fire({
+      title: "¡Próximamente!",
+      text: "Las promociones estarán disponibles muy pronto.",
+      icon: "info",
+      confirmButtonText: "Ok",
+      confirmButtonColor: "#175992"
+    });
   };
 
   return (
@@ -37,78 +48,56 @@ const ScreenHome = () => {
       <Header />
       <div className={styles.heroSection}>
         <img
-          src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80"
-          alt="Hero"
+          src="https://www.hogarmania.com/archivos/201105/ropa-calidad-1280x720x80xX.jpg"
           className={styles.heroImg}
         />
       </div>
-      <div className={styles.quickAccessSection}>
-        <div className={styles.quickAccessRow}>
-          <div>
-            <span className={styles.quickAccessTitle}>Novedades</span>
-            <div className={styles.quickAccessIcons}>
-              <img src="https://imgur.com/7Qe2qQ9.png" alt="Novedad 1" />
-              <img src="https://imgur.com/g8it2w4.png" alt="Novedad 2" />
-              <img src="https://imgur.com/8Uj8Q5g.png" alt="Novedad 3" />
-            </div>
-          </div>
-          <div>
-            <span className={styles.quickAccessTitle}>Destacados</span>
-            <div className={styles.quickAccessIcons}>
-              <img src="https://imgur.com/7G6vF7O.png" alt="Destacado 1" />
-              <img src="https://imgur.com/9fBKZjF.png" alt="Destacado 2" />
-            </div>
-          </div>
-          <div>
-            <span className={styles.quickAccessTitle}>Marcas</span>
-            <div className={styles.quickAccessIcons}>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg" alt="Nike" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Puma_AG.svg" alt="Puma" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Vans_logo.svg" alt="Vans" />
-            </div>
-          </div>
+      <div className={styles.categoryRow}>
+        <div
+          className={styles.categoryCard}
+          onClick={() => goToCategory("niño")}
+          style={{ cursor: "pointer" }}
+        >
+          <FaChild />
+          <span>Niños</span>
         </div>
-        <div className={styles.categoryRow}>
-          <div
-            className={styles.categoryCard}
-            onClick={() => goToCategory("niño")}
-            style={{ cursor: "pointer" }}
-          >
-            <FaChild />
-            <span>Niños</span>
-          </div>
-          <div
-            className={styles.categoryCard}
-            onClick={() => goToCategory("hombre")}
-            style={{ cursor: "pointer" }}
-          >
-            <FaMale />
-            <span>Hombres</span>
-          </div>
-          <div
-            className={styles.categoryCard}
-            onClick={() => goToCategory("mujer")}
-            style={{ cursor: "pointer" }}
-          >
-            <FaFemale />
-            <span>Mujeres</span>
-          </div>
-          <div className={styles.categoryCard}>
-            <FaShoePrints />
-            <span>Zapatillas</span>
-          </div>
-          <div
-            className={styles.categoryCard}
-            onClick={() => goToCategory("clothes")}
-            style={{ cursor: "pointer" }}
-          >
-            <FaTshirt />
-            <span>Ropa</span>
-          </div>
-          <div className={styles.categoryCard}>
-            <FaPercent />
-            <span>PROMO</span>
-          </div>
+        <div
+          className={styles.categoryCard}
+          onClick={() => goToCategory("hombre")}
+          style={{ cursor: "pointer" }}
+        >
+          <FaMale />
+          <span>Hombres</span>
+        </div>
+        <div
+          className={styles.categoryCard}
+          onClick={() => goToCategory("mujer")}
+          style={{ cursor: "pointer" }}
+        >
+          <FaFemale />
+          <span>Mujeres</span>
+        </div>
+        <div className={styles.categoryCard}
+          onClick={() => goToCategory("zapatillas")}
+          style={{ cursor: "pointer" }}>
+          <FaShoePrints />
+          <span>Zapatillas</span>
+        </div>
+        <div
+          className={styles.categoryCard}
+          onClick={() => goToCategory("clothes")}
+          style={{ cursor: "pointer" }}
+        >
+          <FaTshirt />
+          <span>Ropa</span>
+        </div>
+        <div
+          className={styles.categoryCard}
+          onClick={handlePromoClick}
+          style={{ cursor: "pointer" }}
+        >
+          <FaPercent />
+          <span>PROMO</span>
         </div>
       </div>
       <div className={styles.featuredSection}>

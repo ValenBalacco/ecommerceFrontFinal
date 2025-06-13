@@ -2,84 +2,99 @@
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	background-color: #f5f5f5;
-	font-family: "Roboto", sans-serif;
+	background: linear-gradient(120deg, #fafdff 0%, #e8edf3 100%);
+	font-family: "Roboto", "Unbounded", sans-serif;
 }
 
 .main {
 	flex: 1;
 	width: 100%;
-	max-width: 1200px;
+	max-width: 1220px;
 	margin: 0 auto;
-	padding: 20px;
+	padding: 32px 20px 20px 20px;
 }
 
 .titulo {
-	font-size: 24px;
-	font-weight: 500;
-	margin-bottom: 10px;
-	color: #333;
+	font-size: 2.2rem;
+	font-weight: 700;
+	margin-bottom: 8px;
+	color: #194372;
+	letter-spacing: -1px;
 	text-align: center;
 }
 
 .subtitulo {
-	font-size: 16px;
-	color: #666;
-	margin-bottom: 20px;
+	font-size: 1.11rem;
+	color: #5183b2;
+	margin-bottom: 30px;
 	font-weight: 400;
 	text-align: center;
+	letter-spacing: 0.01em;
 }
 
 .contenedorPrincipal {
 	display: flex;
-	gap: 20px;
+	gap: 32px;
 	flex-wrap: wrap;
+	align-items: flex-start;
 }
 
 .contenedorProductos {
 	flex: 2;
-	background-color: white;
-	border-radius: 8px;
-	padding: 20px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	background: rgba(255,255,255,0.98);
+	border-radius: 14px;
+	padding: 32px 24px 24px 24px;
+	box-shadow: 0 8px 36px #a3b0c822, 0 1.5px 7px #b4d4e955;
+	min-width: 320px;
 }
 
 .cardProducto {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: 8px;
-	padding: 10px;
-	margin-bottom: 8px;
-	border: 1px solid #eee;
-	border-radius: 6px;
-	background-color: #fff;
+	gap: 16px;
+	padding: 18px 12px;
+	margin-bottom: 16px;
+	border: 1.5px solid #e3e8ef;
+	border-radius: 10px;
+	background: #fafdff;
+	transition: box-shadow 0.18s, border 0.18s;
+	box-shadow: 0 3px 18px #baccd033;
+}
+
+.cardProducto:hover {
+	border: 1.5px solid #175992;
+	box-shadow: 0 8px 24px #17599222;
 }
 
 .imagen {
-	width: 80px;
-	height: 80px;
+	width: 85px;
+	height: 85px;
 	object-fit: cover;
-	border-radius: 4px;
+	border-radius: 8px;
+	box-shadow: 0 5px 16px #17599215;
+	border: 1px solid #e7ebf0;
 }
 
 .infoProducto {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	width: 13vw;
+	width: 180px;
+	max-width: 22vw;
 }
 
 .nombre {
-	font-weight: 500;
-	font-size: 15px;
-	color: #333;
-	margin-bottom: 4px;
+	font-weight: 600;
+	font-size: 1.09rem;
+	color: #18304b;
+	margin-bottom: 3px;
+	letter-spacing: 0.02em;
 }
 
 .talle {
-	font-size: 13px;
-	color: #666;
+	font-size: 0.96rem;
+	color: #5183b2;
 }
 
 .cantidadProducto {
@@ -87,30 +102,34 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	min-width: 100px;
+	min-width: 110px;
 }
 
 .simpleContador {
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: 12px;
 }
 
 .simpleBoton {
-	width: 28px;
-	height: 28px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	background: none;
-	font-size: 16px;
+	width: 32px;
+	height: 32px;
+	border: 1.5px solid #d0d8e5;
+	border-radius: 7px;
+	background: linear-gradient(120deg, #eaf1f8 60%, #fafdff 100%);
+	font-size: 20px;
 	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	transition: background 0.17s, border 0.17s, box-shadow 0.17s;
+	box-shadow: 0 2px 6px #baccd044;
 }
 
 .simpleBoton:hover {
-	background-color: #f5f5f5;
+	background: #ddeafb;
+	border: 1.5px solid #175992;
+	box-shadow: 0 4px 10px #17599218;
 }
 
 .simpleBoton:disabled {
@@ -119,12 +138,13 @@
 }
 
 .simpleValor {
-	min-width: 20px;
+	min-width: 26px;
 	text-align: center;
+	font-size: 1rem;
 }
 
 .simpleWarningInline {
-	font-size: 12px;
+	font-size: 0.89rem;
 	color: #ff5722;
 	margin-top: 4px;
 	text-align: center;
@@ -135,98 +155,107 @@
 	flex-direction: column;
 	align-items: flex-end;
 	justify-content: center;
-	min-width: 80px;
+	min-width: 92px;
 }
 
 .precioOriginal {
-	font-size: 13px;
-	color: #999;
+	font-size: 0.98rem;
+	color: #b3b7c3;
 	text-decoration: line-through;
 }
 
 .descuento {
-	font-size: 13px;
-	color: #00a650;
+	font-size: 0.96rem;
+	color: #0db36c;
 	font-weight: 500;
 }
 
 .precioFinal {
-	font-size: 16px;
-	font-weight: 600;
-	color: #333;
+	font-size: 1.13rem;
+	font-weight: 700;
+	color: #18304b;
 }
 
 .botonEliminar {
 	border: none;
 	background: none;
-	color: #999;
+	color: #b3b7c3;
 	cursor: pointer;
 	padding: 4px;
 	display: flex;
 	align-items: center;
-	transition: color 0.2s;
+	transition: color 0.18s, background 0.18s;
+	font-size: 1.13rem;
+	border-radius: 6px;
 }
 
 .botonEliminar:hover {
 	color: #f44336;
+	background: #ffeaea;
 }
 
 .resumen {
 	flex: 1;
-	background-color: white;
-	border-radius: 8px;
-	padding: 20px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	background: rgba(255,255,255,0.99);
+	border-radius: 14px;
+	padding: 32px 24px 24px 24px;
+	box-shadow: 0 8px 36px #a3b0c822, 0 1.5px 7px #b4d4e955;
 	height: fit-content;
+	min-width: 260px;
+	max-width: 370px;
 }
 
 .resumenTitulo {
-	font-size: 20px;
-	font-weight: 500;
-	margin-bottom: 20px;
-	color: #333;
+	font-size: 1.35rem;
+	font-weight: 700;
+	margin-bottom: 22px;
+	color: #18304b;
 	text-align: center;
+	letter-spacing: -0.5px;
 }
 
 .resumenItem {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 10px;
-	font-size: 14px;
-	color: #666;
+	margin-bottom: 12px;
+	font-size: 1.07rem;
+	color: #5183b2;
 }
 
 .resumenTotal {
 	display: flex;
 	justify-content: space-between;
-	margin: 15px 0;
-	font-size: 18px;
-	font-weight: 600;
-	color: #333;
+	margin: 20px 0;
+	font-size: 1.41rem;
+	font-weight: 800;
+	color: #175992;
 }
 
 .linea {
 	border: none;
-	border-top: 1px solid #eee;
-	margin: 15px 0;
+	border-top: 1.5px solid #e3e8ef;
+	margin: 18px 0;
 }
 
 .botonConfirmar {
 	width: 100%;
-	padding: 12px;
-	background-color: #1c6cb1;
+	padding: 15px 0;
+	background: linear-gradient(90deg, #175992 60%, #0db36c 100%);
 	color: white;
 	border: none;
-	border-radius: 4px;
-	font-size: 16px;
-	font-weight: 500;
+	border-radius: 8px;
+	font-size: 1.11rem;
+	font-weight: 700;
 	cursor: pointer;
-	margin-top: 20px;
-	transition: background-color 0.2s;
+	margin-top: 26px;
+	transition: background 0.18s, box-shadow 0.18s;
+	letter-spacing: 0.04em;
+	box-shadow: 0 4px 18px #17599222;
 }
 
 .botonConfirmar:hover {
-	background-color: #16578f;
+	background: linear-gradient(90deg, #0db36c 10%, #175992 90%);
+	box-shadow: 0 8px 24px #0db36c22;
 }
 
 .botonConfirmar:disabled {

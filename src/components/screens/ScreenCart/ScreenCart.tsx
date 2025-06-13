@@ -9,7 +9,6 @@ import Swal from "sweetalert2";
 import DireccionesCliente from "../../ui/DireccionesCliente/DireccionesCliente";
 import ModalAgregarDireccion from "../../ui/ModalAgregarDireccion/ModalAgregarDireccion";
 import { handlePagar } from "../../../services/mercadoPagoService";
-import { ItemCarrito } from "../../../types";
 import { mapCartItemsToMercadoPago } from "../../../helpers/mapCartItemsToMercadoPago";
 
 const detalleService = new ServiceDetalle();

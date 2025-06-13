@@ -4,7 +4,7 @@ import styles from "./ModalCrearEditarProducto.module.css";
 import { ServiceCategoria } from "../../../../services/categoriaService";
 import Swal from "sweetalert2";
 
-// Usa tus enums/data del modelo
+
 const tipoProductos: Producto["tipoProducto"][] = ["REMERA", "PANTALON", "ZAPATILLA", "OTRO"];
 const sexos = ["MASCULINO", "FEMENINO", "INFANTIL"];
 

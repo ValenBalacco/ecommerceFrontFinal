@@ -15,7 +15,7 @@
 }
 
 .containerButtonsFunctions button {
-  background-color: #4caf50;
+  background-color: #0e0d0f;
   border: none;
   padding: 10px;
   border-radius: 8px;
@@ -25,7 +25,7 @@
 }
 
 .containerButtonsFunctions button:hover {
-  background-color: #45a049;
+  background-color: #171a17;
 }
 
 .title {

@@ -23,15 +23,15 @@ export class ServiceProducto {
 
   public async getProductos(): Promise<Producto[]> {
     const url = `${this.baseURL}`;
-    console.log("Llamando GET a:", url); // LOG URL
+    console.log("Llamando GET a:", url); 
     try {
       const response: AxiosResponse<Producto[]> = await axios.get(url, {
         headers: this.getAuthHeaders(),
       });
-      console.log("Respuesta backend productos:", response.data); // LOG RESPONSE
+      console.log("Respuesta backend productos:", response.data); 
       return response.data;
     } catch (error) {
-      console.error("Error en getProductos:", error); // LOG ERROR
+      console.error("Error en getProductos:", error); 
       throw error;
     }
   }

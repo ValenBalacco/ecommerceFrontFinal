@@ -15,7 +15,7 @@ export const Categorias = () => {
 
   useEffect(() => {
     fetchCategorias();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, []);
 
   const fetchCategorias = async () => {
@@ -69,13 +69,10 @@ export const Categorias = () => {
   const handleSubmit = async (categoria: Categoria) => {
     try {
       if (categoria.id) {
-        // Solo enviar los campos a editar (puedes adaptar según tu modal/form)
         await categoriaService.editarCategoria(categoria.id, {
           nombre: categoria.nombre,
-          // Agrega aquí otros campos editables si tu modelo los tiene
         });
       } else {
-        // No enviar id al crear
         const { id, ...categoriaSinId } = categoria;
         await categoriaService.crearCategoria(categoriaSinId);
       }

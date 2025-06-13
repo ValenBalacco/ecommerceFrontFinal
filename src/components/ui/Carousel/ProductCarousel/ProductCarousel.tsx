@@ -13,9 +13,8 @@ interface IProps {
 }
 
 const ProductCarousel: FC<IProps> = ({ products }) => {
-  // Calcula slidesPerView dinámicamente según breakpoint, si lo deseas, o usa fijo (ej: 3)
-  // Aquí asumimos 3 para desktop
-  const slidesPerView = 3;
+
+  const slidesPerView = 4;
   const loopEnabled = products.length > slidesPerView;
 
   return (
@@ -36,6 +35,12 @@ const ProductCarousel: FC<IProps> = ({ products }) => {
         },
         1024: {
           slidesPerView: 3,
+        },
+        1280: {
+          slidesPerView: 4,
+        },
+        1600: {
+          slidesPerView: 5,
         },
       }}
     >

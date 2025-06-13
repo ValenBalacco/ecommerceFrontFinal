@@ -1,15 +1,14 @@
 import { Navigate, Route, Routes } from "react-router";
 import ScreenHome from "../components/screens/ScreenHome/ScreenHome";
 import ScreenProductPage from "../components/screens/ScreenProductPage/ScreenProductPage";
-import ScreenMen from "../components/screens/ScreenCategories/ScreenMen/ScreenMen";
+import ScreenHombre from "../components/screens/ScreenCategories/ScreenMen/ScreenHombre";
 import ScreenWomen from "../components/screens/ScreenCategories/ScreenWomen/ScreenWomen";
-import ScreenKids from "../components/screens/ScreenCategories/ScreenKids/ScreenKids";
+import ScreenNiño from "../components/screens/ScreenCategories/ScreenNiño/ScreenNiño";
 import ScreenLoginSignup from "../components/screens/ScreenLoginSignup/ScreenLoginSignup";
 import { ScreenCart } from "../components/screens/ScreenCart/ScreenCart";
 import ScreenAdmin from "../components/screens/ScreenAdmin/ScreenAdmin";
 import { ScreenUser } from "../components/screens/ScreenUser/ScreenUser";
-import { ScreenDestacados } from "../components/screens/ScreenCategories/ScreenDestacados/ScreenDestacados";
-
+import ScreenZapatillas from "../components/screens/ScreenCategories/ScreenZapatillas/ScreenZapatillas";
 import ScreenClothes from "../components/screens/ScreenClothes/ScreenClothes";
 import CheckoutSuccess from "../components/screens/CheckoutSuccess";
 import CheckoutFailure from "../components/screens/CheckoutFailure";
@@ -45,7 +44,7 @@ const AppRouter = () => {
 			/>
 			<Route
 				path="/hombre"
-				element={<ScreenMen />}
+				element={<ScreenHombre />}
 			/>
 			<Route
 				path="/mujer"
@@ -53,19 +52,19 @@ const AppRouter = () => {
 			/>
 			<Route
 				path="/niño"
-				element={<ScreenKids />}
+				element={<ScreenNiño />}
 			/>
 			<Route
 				path="/clothes"
 				element={<ScreenClothes />}
 			/>
 			<Route
-				path="/destacados"
-				element={<ScreenDestacados />}
-			/>
-			<Route
 				path="/cart"
 				element={<ScreenCart />}
+			/>
+			<Route
+				path="/zapatillas"
+				element={<ScreenZapatillas />}
 			/>
     {/* Rutas de Mercado Pago */}
     <Route path="/checkout/success" element={<CheckoutSuccess />} />
