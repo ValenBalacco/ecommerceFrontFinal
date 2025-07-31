@@ -16,22 +16,22 @@ const ScreenProductPage = () => {
   const [talleSeleccionado, setTalleSeleccionado] = useState<number | null>(null);
   const [producto, setProducto] = useState<Detalle>();
   const detalleService = new ServiceDetalle();
-  const { agregar, items } = useCartStore(); // <-- agrega items del carrito
+  const { agregar, items } = useCartStore(); 
   const [detallesProducto, setDetallesProducto] = useState<Detalle[]>([]);
   const [colorSeleccionado, setColorSeleccionado] = useState<string>("");
 
-  // Trae el producto por ID
+ 
   useEffect(() => {
     getProductsByID();
-    // eslint-disable-next-line
+   
   }, [id]);
 
-  // Trae los detalles del producto cuando cambia el producto
+  
   useEffect(() => {
     if (producto?.producto?.id) {
       getDetallesPorProducto();
     }
-    // eslint-disable-next-line
+ 
   }, [producto]);
 
   const getProductsByID = async () => {
@@ -56,7 +56,6 @@ const ScreenProductPage = () => {
     }
   };
 
-  // Agrupa detalles por color
   const detallesPorColor: Record<string, Detalle[]> = {};
   detallesProducto.forEach((detalle) => {
     if (!detalle.color) return;
@@ -65,19 +64,19 @@ const ScreenProductPage = () => {
   });
   const coloresDisponibles = Object.keys(detallesPorColor);
 
-  // Talles disponibles según color seleccionado
+
   const tallesDisponibles = colorSeleccionado
     ? detallesPorColor[colorSeleccionado].map((d) => d.talle?.talle).filter(Boolean)
     : [];
 
-  // Detalle seleccionado según color y talle
+  
   const detalleSeleccionado = detallesProducto.find(
     (d) =>
       d.color === colorSeleccionado &&
       d.id === talleSeleccionado
   );
 
-  // Obtén el precio y descuento del detalle seleccionado
+  
   const precioDetalle = detalleSeleccionado?.precios?.[0]?.precioVenta ?? 0;
   const descuentoDetalle = detalleSeleccionado?.precios?.[0]?.descuento;
   const descuentoActivoDetalle = isDescuentoActivo(descuentoDetalle);
@@ -88,18 +87,17 @@ const ScreenProductPage = () => {
 
   const stockMaximo = detalleSeleccionado?.stock ?? 1;
 
-  // Cambia los handlers de cantidad:
+  
   const increment = () =>
     setCantidad((prev) => (prev < stockMaximo ? prev + 1 : prev));
   const decrement = () =>
     setCantidad((prev) => (prev > 1 ? prev - 1 : prev));
 
-  // Cuando cambias de talle o color, resetea la cantidad a 1:
+  
   useEffect(() => {
     setCantidad(1);
   }, [detalleSeleccionado]);
 
-  // Calcula cuántos de este detalle ya hay en el carrito
   const cantidadEnCarrito = items.find(i => i.detalleId === detalleSeleccionado?.id)?.cantidad ?? 0;
 
   if (!producto || !producto.producto)
@@ -131,7 +129,7 @@ const ScreenProductPage = () => {
           <p className={styles.productCategory}>
             <span>Categoría:</span> {producto.producto?.categoria?.nombre ?? "Sin categoría"}
           </p>
-          {/* Selector de color */}
+         
           <div>
             <h3 className={styles.tituloColor}>Selecciona el color</h3>
             <div className={styles.colorGrid}>
@@ -152,7 +150,7 @@ const ScreenProductPage = () => {
               ))}
             </div>
           </div>
-          {/* Selector de talle */}
+          
           <div>
             <h3 className={styles.tituloTalle}>Selecciona el talle</h3>
             <div className={styles.sizeGrid}>
@@ -184,7 +182,7 @@ const ScreenProductPage = () => {
             const descuento = precioObj.descuento;
             const porcentaje = descuento?.porcentaje ?? 0;
 
-            // Mostrar precio tachado siempre que el precio de compra sea mayor al de venta
+            
             const mostrarPrecioTachado = precioCompra > precioVenta;
 
             return mostrarPrecioTachado ? (

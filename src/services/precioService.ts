@@ -23,7 +23,7 @@ export class ServicePrecio {
   public async crearPrecio(precio: {
     precioCompra: number;
     detalleId: number;
-    descuentoId: number | null; // Permitir null si no hay descuento vigente
+    descuentoId: number | null; 
     descuentoPorcentaje: number;
   }): Promise<Precio> {
     const url = `${this.baseURL}`;
@@ -59,7 +59,7 @@ export class ServicePrecio {
     const url = `${this.baseURL}/${id}`;
     let payload = { ...precio };
 
-    // Recalcula precioVenta si tienes precioCompra y descuentoPorcentaje
+  
     if (
       typeof precio.precioCompra === "number" &&
       typeof precio.descuentoPorcentaje === "number"
@@ -72,7 +72,6 @@ export class ServicePrecio {
         : precioVenta;
     }
 
-    // Si no hay descuento vigente, asegúrate de enviar null
     if (payload.descuentoId === undefined) {
       payload.descuentoId = null;
     }

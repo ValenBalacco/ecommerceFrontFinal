@@ -21,8 +21,8 @@ const ScreenClothes = () => {
       .then((detalles) => {
         const soloRopa = detalles.filter(
           (det) =>
-            det.producto?.tipoProducto !== "ZAPATILLA" && // <-- excluye Zapatilla
-            det.producto?.activo !== false // Solo productos activos
+            det.producto?.tipoProducto !== "ZAPATILLA" && 
+            det.producto?.activo !== false 
         );
         setProductosRopa(soloRopa);
       })

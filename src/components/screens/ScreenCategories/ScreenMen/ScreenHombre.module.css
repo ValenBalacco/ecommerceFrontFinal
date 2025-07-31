@@ -46,7 +46,7 @@
   flex-wrap: wrap;
   gap: 18px;
   margin-top: 10px;
-  background: transparent; /* Asegura que no tape el fondo */
+  background: transparent; 
 }
 
 @media (max-width: 900px) {

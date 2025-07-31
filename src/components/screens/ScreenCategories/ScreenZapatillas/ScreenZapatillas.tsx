@@ -1,6 +1,6 @@
 import Navbar from "../../../ui/Header/Navbar";
 import Footer from "../../../ui/Footer/Footer";
-import styles from "./ScreenZapatillas.module.css"; // Usa el mismo CSS para consistencia visual
+import styles from "./ScreenZapatillas.module.css"; 
 import CardProducts from "../../../ui/Cards/CardProducts/CardProducts";
 import SidebarFilter from "../../../ui/SidebarFilter/SidebarFilter";
 import { useEffect, useState } from "react";
@@ -20,8 +20,8 @@ const ScreenZapatillas = () => {
       .then((detalles) => {
         const soloZapatillas = detalles.filter(
           (det) =>
-            det.producto?.tipoProducto === "ZAPATILLA" && // <-- filtra por tipoProducto
-            det.producto?.activo !== false // Solo productos activos
+            det.producto?.tipoProducto === "ZAPATILLA" && 
+            det.producto?.activo !== false 
         );
         setProductosZapatillas(soloZapatillas);
       })

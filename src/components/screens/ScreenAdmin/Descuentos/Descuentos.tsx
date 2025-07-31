@@ -4,7 +4,6 @@ import { Descuento } from "../../../../types";
 import { AdminTable } from "../../../ui/Tables/AdminTable/AdminTable";
 import Swal from "sweetalert2";
 import { Trash2 } from "lucide-react";
-// Suponiendo que tienes un servicio para descuentos:
 import { ServiceDescuento } from "../../../../services/descuentoService";
 import ModalCrearEditarDescuento from "../../../ui/Forms/ModalCrearEditarDescuento/ModalCrearEditarDescuento";
 
@@ -64,7 +63,6 @@ export const Descuentos = () => {
     }
   };
 
-  // Filtrar descuentos según vigencia
   const hoy = new Date();
   const descuentosFiltrados = descuentos.filter((d) => {
     if (mostrarNoVigentes) {

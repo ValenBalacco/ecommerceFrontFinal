@@ -3,16 +3,16 @@ import { useNavigate, useLocation } from "react-router";
 import styles from "./CheckoutStatus.module.css";
 import { useCartStore } from "../../store/useCartStore";
 import axios from "axios";
-import { OrdenCompra } from "../../types"; // Ajusta el path si es necesario
+import { OrdenCompra } from "../../types"; 
 const CheckoutSuccess: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const vaciarCarrito = useCartStore((state) => state.vaciar);
   const [orden, setOrden] = useState<OrdenCompra | null>(null);
-  const ordenEnviadaRef = useRef(false); // <-- bandera con useRef
+  const ordenEnviadaRef = useRef(false); 
 
   useEffect(() => {
-    if (ordenEnviadaRef.current) return; // <-- evita doble envío
+    if (ordenEnviadaRef.current) return; 
 
     const params = new URLSearchParams(location.search);
     const status = params.get("status");
@@ -60,7 +60,7 @@ const CheckoutSuccess: React.FC = () => {
       return;
     }
 
-    ordenEnviadaRef.current = true; // <-- marca como enviada
+    ordenEnviadaRef.current = true; 
 
     axios
       .post(
@@ -89,7 +89,7 @@ const CheckoutSuccess: React.FC = () => {
         console.log("Error backend:", err.response?.data);
       });
 
-  // Solo depende de location.search y navigate
+ 
   }, [location.search, navigate, vaciarCarrito]);
 
   return (

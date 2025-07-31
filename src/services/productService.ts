@@ -8,7 +8,7 @@ export class ServiceProducto {
 
   constructor() {
     this.baseURL = productoService;
-    console.log("ServiceProducto baseURL:", this.baseURL); // LOG INICIAL
+    console.log("ServiceProducto baseURL:", this.baseURL); 
   }
 
   private getAuthHeaders() {
@@ -61,7 +61,7 @@ export class ServiceProducto {
     return response.data;
   }
 
-  // Solo enviar { nombre, categoriaId, tipoProducto, sexo }
+ 
   public async crearProducto(producto: {
     nombre: string;
     categoriaId: number;
@@ -88,7 +88,7 @@ export class ServiceProducto {
 
   public async eliminarProducto(id: number): Promise<void> {
     const url = `${this.baseURL}/${id}`;
-    // Eliminado lógico: solo actualiza el campo activo a false
+   
     await axios.put(
       url,
       { activo: false },

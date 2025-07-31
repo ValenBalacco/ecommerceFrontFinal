@@ -17,7 +17,7 @@ export const handlePagar = async (itemsMP: ItemCarrito[], direccionSeleccionadaI
   const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
   const token = localStorage.getItem("token");
 
-  // Valida antes de enviar
+
   for (const item of itemsMP) {
     if (
       typeof item.unit_price !== "number" ||
@@ -66,7 +66,7 @@ export const handlePagar = async (itemsMP: ItemCarrito[], direccionSeleccionadaI
 
     localStorage.setItem("checkout_data", JSON.stringify({
       items: itemsMP.map(item => ({
-        productoId: item.productoId, // <-- AGREGA ESTO
+        productoId: item.productoId, 
         detalleId: item.detalleId,
         cantidad: item.quantity,
       })),
@@ -74,8 +74,8 @@ export const handlePagar = async (itemsMP: ItemCarrito[], direccionSeleccionadaI
       usuario: usuario,
     }));
 
-    // Luego rediriges a Mercado Pago o a la pantalla de éxito
-    window.location.href = initPoint; // o navigate("/checkout-success")
+   
+    window.location.href = initPoint; 
     return true;
   } catch (error) {
     console.error("Error al iniciar pago:", error);

@@ -80,7 +80,7 @@ const ModalAgregarDireccion: FC<IProps> = ({ usuario, onDireccionAgregada, onClo
     try {
       await schema.validate(form, { abortEarly: false });
 
-      // Solo los campos requeridos para creación de dirección
+     
       const { localidad, pais, provincia, departamento, codigoPostal } = form;
       const nuevaDireccion = {
         localidad,
@@ -92,7 +92,7 @@ const ModalAgregarDireccion: FC<IProps> = ({ usuario, onDireccionAgregada, onClo
 
       const direccionCreada = await serviceDireccion.crearDireccion(nuevaDireccion);
 
-      // Asociar con el usuario si corresponde
+     
       await serviceDireccion.crearUsuarioDireccion({
         usuarioId: usuario.id,
         direccionId: direccionCreada.id,

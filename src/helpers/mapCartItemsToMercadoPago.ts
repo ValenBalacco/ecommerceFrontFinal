@@ -3,7 +3,7 @@ import { ItemCarrito } from "../types";
 
 export function mapCartItemsToMercadoPago(items: ICartItem[]): ItemCarrito[] {
   return items.map((item) => ({
-    productoId: item.productoId, // <-- obligatorio
+    productoId: item.productoId, 
     detalleId: item.detalleId,
     title: item.nombre || "Producto",
     quantity: item.cantidad ?? 1,

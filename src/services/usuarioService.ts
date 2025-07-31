@@ -39,7 +39,7 @@ export class ServiceUsuario {
 
   public async crearUsuario(usuario: Omit<Usuario, "id">): Promise<Usuario> {
     const url = `${this.baseURL}`;
-    // Elimina usuario.id, el backend lo genera
+    
     const response: AxiosResponse<Usuario> = await axios.post(url, usuario, {
       headers: this.getAuthHeaders(),
     });

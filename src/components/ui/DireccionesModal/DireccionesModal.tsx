@@ -28,7 +28,7 @@ const DireccionesModal: FC<Props> = ({ cerrar, seleccionarDireccion }) => {
 
   const serviceDireccion = new ServiceDireccion();
 
-  // Cargar las direcciones del usuario desde la tabla intermedia
+  
   const cargarDirecciones = async () => {
     if (!usuarioId) {
       setDirecciones([]);
@@ -50,7 +50,7 @@ const DireccionesModal: FC<Props> = ({ cerrar, seleccionarDireccion }) => {
 
   useEffect(() => {
     cargarDirecciones();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   const guardar = () => {
@@ -71,7 +71,7 @@ const DireccionesModal: FC<Props> = ({ cerrar, seleccionarDireccion }) => {
     setLoadingGuardar(true);
 
     try {
-      // SOLO se envían los campos básicos de dirección
+   
       const { localidad, provincia, pais, departamento, codigoPostal } = nuevaDireccion;
       const direccionCreada = await serviceDireccion.crearDireccion({
         localidad,
@@ -81,7 +81,7 @@ const DireccionesModal: FC<Props> = ({ cerrar, seleccionarDireccion }) => {
         codigoPostal,
       });
 
-      // SOLO se envían usuarioId y direccionId
+   
       await serviceDireccion.crearUsuarioDireccion({
         usuarioId,
         direccionId: direccionCreada.id,

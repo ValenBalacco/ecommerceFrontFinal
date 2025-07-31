@@ -1,10 +1,5 @@
 import { uploadImageToCloudinary, CloudinaryUploadResponse } from "../services/cloudinaryService";
 
-/**
- * Sube una imagen a Cloudinary y retorna la respuesta.
- * @param file Archivo de imagen a subir.
- * @returns CloudinaryUploadResponse con la información de la imagen subida.
- */
 export const uploadToCloudinary = async (
   file: File,
   uploadPreset: string,

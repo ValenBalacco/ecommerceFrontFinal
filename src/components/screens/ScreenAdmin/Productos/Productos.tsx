@@ -153,7 +153,7 @@ export const Productos = () => {
     producto: Omit<Producto, "detalles" | "itemsOrden" | "categoria" | "id"> & { id?: number }
   ) => {
     try {
-      // Si producto tiene id, es edición; si no, es creación
+    
       if (producto.id) {
         await productoService.editarProducto(producto.id, {
           nombre: producto.nombre,
@@ -183,7 +183,7 @@ export const Productos = () => {
     setModalDetalle(true);
   };
 
-  // Filtrar productos según el estado mostrarNoActivos
+  
   const productosFiltrados = productos.filter((p) =>
     mostrarNoActivos ? !p.activo : p.activo
   );

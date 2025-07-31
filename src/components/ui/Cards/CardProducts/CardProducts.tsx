@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { Descuento } from "../../../../types";
 import { useCartStore } from "../../../../store/useCartStore";
 import Swal from "sweetalert2";
-// Ajusta el path según la ubicación real del archivo descuentos.ts
+
 import { isDescuentoActivo } from "../../../../helpers/descuentos";
 
 interface IProps {
@@ -23,7 +23,7 @@ const CardProducts: FC<IProps> = ({ products }) => {
   const descuentoActivo = isDescuentoActivo(descuento);
   const porcentaje = descuento?.porcentaje ?? 0;
 
-  // Mostrar precio tachado siempre que el precio de compra sea mayor al de venta
+  
   const mostrarPrecioTachado = precioCompra > precioVenta;
 
   const handleAddToCart = () => {
@@ -31,7 +31,7 @@ const CardProducts: FC<IProps> = ({ products }) => {
     const precioVenta = products.precios?.[0]?.precioVenta;
     const stockMaximo = products.stock ?? 0;
 
-    // Obtiene la cantidad actual en el carrito para este detalle
+  
     const itemsCarrito = useCartStore.getState().items;
     const cantidadEnCarrito =
       itemsCarrito.find((i) => i.detalleId === products.id)?.cantidad ?? 0;

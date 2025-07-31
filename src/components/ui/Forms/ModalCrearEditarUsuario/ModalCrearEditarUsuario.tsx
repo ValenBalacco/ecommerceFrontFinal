@@ -15,7 +15,7 @@ export const ModalCrearEditarUsuario: FC<IProps> = ({
   onSubmit,
 }) => {
   const [formState, setFormState] = useState<Usuario>({
-    // id siempre string, nunca number
+    
     id: usuario?.id ?? Date.now().toString(),
     nombre: usuario?.nombre || "",
     contraseña: usuario?.contraseña || "",

@@ -15,7 +15,7 @@ const ScreenWomen = () => {
 
   useEffect(() => {
     const detalleService = new ServiceDetalle();
-    // Trae todos los detalles y filtra por género en el front
+  
     detalleService
       .getDetalles()
       .then((detalles) => {
@@ -42,7 +42,7 @@ const ScreenWomen = () => {
         ? talle.includes(producto.talle.talle.toLowerCase())
         : true);
 
-    // CAMBIO: precio ahora es producto.precios?.[0]?.precioVenta
+   
     const precioVenta = producto.precios?.[0]?.precioVenta ?? 0;
 
     const coincideMinPrecio = minPrecio === null || precioVenta >= minPrecio;

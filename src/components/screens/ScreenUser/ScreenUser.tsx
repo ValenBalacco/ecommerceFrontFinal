@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import ModalAgregarDireccion from "../../ui/ModalAgregarDireccion/ModalAgregarDireccion";
 import DireccionesCliente from "../../ui/DireccionesCliente/DireccionesCliente";
 
-// Modal simple para ver datos del usuario
+
 const ModalVerUsuario = ({ user, onClose }: { user: Usuario; onClose: () => void }) => (
   <div className={styles.overlay}>
     <div className={styles.modalUsuario}>
@@ -18,7 +18,7 @@ const ModalVerUsuario = ({ user, onClose }: { user: Usuario; onClose: () => void
         <li><strong>Email:</strong> {user.email}</li>
         {user.rol && <li><strong>Rol:</strong> {user.rol}</li>}
         {user.dni && <li><strong>DNI:</strong> {user.dni}</li>}
-        {/* Agrega aquí más campos según el modelo de Usuario */}
+        
       </ul>
       <button className={styles.botonCerrarUsuario} onClick={onClose}>Cerrar</button>
     </div>
@@ -31,11 +31,11 @@ export const ScreenUser = () => {
   const [activeSection, setActiveSection] = useState<"perfil" | "mis-pedidos" | "direcciones" | "configuracion">("perfil");
   const [showModalDireccion, setShowModalDireccion] = useState(false);
 
-  // Para DireccionesCliente
+
   const [direccionSeleccionadaId, setDireccionSeleccionadaId] = useState<number | null>(null);
   const [recargarDirecciones, setRecargarDirecciones] = useState(false);
 
-  // Modal usuario
+ 
   const [showModalUsuario, setShowModalUsuario] = useState(false);
 
   const navigate = useNavigate();
@@ -64,12 +64,11 @@ export const ScreenUser = () => {
     fetchOrdenes();
   }, []);
 
-  // Recarga de direcciones tras agregar
+
   const handleDireccionAgregada = () => {
     setRecargarDirecciones((prev) => !prev);
   };
 
-  // Helper para clases de menú
   const getMenuItemClass = (section: typeof activeSection) =>
     `${styles.menuItem} ${activeSection === section ? styles.activeSection : ""}`;
 
@@ -211,7 +210,7 @@ export const ScreenUser = () => {
             </div>
           )}
 
-          {/* CONFIGURACION */}
+          
           {activeSection === "configuracion" && (
             <div className={styles.profileCard}>
               <div
@@ -220,7 +219,7 @@ export const ScreenUser = () => {
                 onClick={() => setShowModalUsuario(true)}
                 style={{ cursor: "pointer", position: "absolute", top: 12, right: 12 }}
               >
-                {/* SVG de ojo */}
+                
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path d="M1 12C3.5 7 8 4 12 4C16 4 20.5 7 23 12C20.5 17 16 20 12 20C8 20 3.5 17 1 12Z" stroke="#444" strokeWidth="2" fill="none"/>
                   <circle cx="12" cy="12" r="3.5" stroke="#444" strokeWidth="2" fill="none"/>
@@ -242,7 +241,7 @@ export const ScreenUser = () => {
       </div>
       <Footer />
 
-      {/* MODAL DATOS USUARIO */}
+
       {showModalUsuario && user && (
         <ModalVerUsuario user={user} onClose={() => setShowModalUsuario(false)} />
       )}

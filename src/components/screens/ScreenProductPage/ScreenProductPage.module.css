@@ -46,12 +46,12 @@
 
 .precioTachado {
   text-decoration: line-through;
-  color: #d32f2f; /* rojo */
+  color: #d32f2f; 
   margin-right: 8px;
 }
 
 .precioConDescuento {
-  color: #111; /* negro */
+  color: #111; 
   font-weight: bold;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .precioNormal {
-  color: #111; /* negro */
+  color: #111;
   font-size: 1.5em;
   font-weight: bold;
 }

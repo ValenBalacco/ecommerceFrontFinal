@@ -21,7 +21,7 @@ export const ScreenCart = () => {
   const [mostrarModalDireccion, setMostrarModalDireccion] = useState(false);
   const [recargarDirecciones, setRecargarDirecciones] = useState(false);
 
-  // Forma segura de obtener el usuario desde localStorage
+ 
   let usuario: any = null;
   const rawUsuario = localStorage.getItem("usuario");
   if (rawUsuario && rawUsuario !== "undefined") {
@@ -65,10 +65,10 @@ export const ScreenCart = () => {
         didOpen: () => Swal.showLoading(),
       });
 
-      // Guarda los datos necesarios en localStorage ANTES de redirigir
+     
       localStorage.setItem("checkout_data", JSON.stringify({
         items: items.map(item => ({
-          productoId: item.productoId, // <-- obligatorio
+          productoId: item.productoId, 
           detalleId: item.detalleId,
           cantidad: item.cantidad,
         })),

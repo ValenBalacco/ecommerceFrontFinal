@@ -5,7 +5,7 @@ import { Talle } from "../../../../types";
 import { AdminTable } from "../../../ui/Tables/AdminTable/AdminTable";
 import { ServiceTalle } from "../../../../services/talleService";
 import Swal from "sweetalert2";
-import { Trash2 } from "lucide-react"; // Agrega este import arriba
+import { Trash2 } from "lucide-react"; 
 
 export const Talles = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -71,7 +71,7 @@ export const Talles = () => {
         const { id, ...talleSinId } = talle;
         await talleService.crearTalle(talleSinId);
       }
-      await fetchTalles(); // <-- actualiza la lista antes de cerrar el modal
+      await fetchTalles(); 
       setModalOpen(false);
     } catch (error) {
       console.error("Error al guardar talle", error);
@@ -83,7 +83,7 @@ export const Talles = () => {
       <AdminTable<Talle>
         data={talles}
         onAdd={handleAdd}
-        // Quitar onEdit para eliminar el botón de edición
+
         onDelete={handleDelete}
         renderItem={(t) => (
           <div className={styles.talleItem}>

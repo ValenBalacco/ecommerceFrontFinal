@@ -15,7 +15,7 @@ const ScreenHombre = () => {
 
   useEffect(() => {
     const detalleService = new ServiceDetalle();
-    // Trae todos los detalles y filtra por género en el front
+    
     detalleService
       .getDetalles()
       .then((detalles) => {

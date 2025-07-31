@@ -80,7 +80,7 @@ export const ModalCrearEditarDetalle: FC<IProps> = ({
         detalleCreado = await serviceDetalle.crearDetalle(detallePayload);
       }
 
-      // Busca el porcentaje de descuento seleccionado y verifica su vigencia
+      
       const descuentoSeleccionado = descuentosDisponibles.find(
         (d) => d.id === precioState.descuentoId
       );
@@ -101,7 +101,6 @@ export const ModalCrearEditarDetalle: FC<IProps> = ({
         precioState.precioCompra -
         (precioState.precioCompra * descuentoPorcentaje / 100);
 
-      // Si el precioVenta es NaN, ponlo en 0
       const precioPayload = {
         precioCompra: precioState.precioCompra,
         precioVenta: isNaN(precioVenta) ? precioState.precioCompra : precioVenta,
@@ -153,7 +152,7 @@ export const ModalCrearEditarDetalle: FC<IProps> = ({
     }));
   };
 
-  // Calcula el precio de venta en tiempo real para mostrarlo
+  
   const descuentoSeleccionado = descuentosDisponibles.find(
     (d) => d.id === precioState.descuentoId
   );

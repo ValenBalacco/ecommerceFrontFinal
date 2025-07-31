@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface ICartItem {
-  productoId: number; // obligatorio
+  productoId: number; 
   detalleId: number;
   nombre: string;
   imagen: string;
@@ -28,7 +28,7 @@ export const useCartStore = create<ICartState>()(
       items: [],
 
       agregar: (item) => {
-        // Validación extra: productoId y detalleId obligatorios
+        
         if (
           typeof item.productoId !== "number" ||
           isNaN(item.productoId) ||
@@ -74,15 +74,3 @@ export const useCartStore = create<ICartState>()(
   )
 );
 
-// Ejemplo de cómo agregar un item correctamente
-/*
-agregar({
-  productoId: producto.id, // obligatorio
-  detalleId: detalle.id,
-  nombre: producto.nombre,
-  imagen: producto.imagen,
-  precio: precio,
-  cantidad: cantidad,
-  // ...otros campos opcionales
-});
-*/

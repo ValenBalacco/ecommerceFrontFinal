@@ -23,7 +23,7 @@ const DireccionesCliente: FC<IProps> = ({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Usa la importación exacta del service
+  
   const serviceDireccion = new ServiceDireccion();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const DireccionesCliente: FC<IProps> = ({
     const cargarDirecciones = async () => {
       setLoading(true);
       try {
-        // Llama al método correcto del service
+   
         const usuarioDirecciones: UsuarioDireccion[] = await serviceDireccion.getUsuarioDirecciones(usuario.id);
 
         if (!Array.isArray(usuarioDirecciones)) {
@@ -44,7 +44,7 @@ const DireccionesCliente: FC<IProps> = ({
           return;
         }
 
-        // Mapea a las direcciones
+       
         const direccionesUsuario: Direccion[] = usuarioDirecciones
           .map((ud: UsuarioDireccion) => ud?.direccion)
           .filter(Boolean);
@@ -63,7 +63,7 @@ const DireccionesCliente: FC<IProps> = ({
     };
 
     cargarDirecciones();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [usuario?.id, recargar]);
 
   useEffect(() => {

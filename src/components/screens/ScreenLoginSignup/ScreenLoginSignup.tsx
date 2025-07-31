@@ -6,7 +6,7 @@ import { loginService } from "../../../services/loginService";
 import { registerService } from "../../../services/registerService";
 import { useAuthStore } from "../../../store/useAuthStore";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../ui/Header/Navbar"; // <-- Importa tu Navbar
+import Navbar from "../../ui/Header/Navbar"; 
 
 const ScreenLoginSignup = () => {
   const [action, setAction] = useState<"Login" | "Register">("Login");
@@ -65,7 +65,7 @@ const ScreenLoginSignup = () => {
 
   return (
     <>
-      <Navbar /> {/* <-- Aquí agregas el Navbar arriba */}
+      <Navbar /> 
       <div className={styles.screenBackground}>
         <div className={styles.container}>
           <div className={styles.header}>

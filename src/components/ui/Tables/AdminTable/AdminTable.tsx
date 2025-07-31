@@ -11,7 +11,7 @@ export interface IAdminTableProps<T> {
   onArrow?: (item: T) => void;
   onAddItem?: (item: T) => void;
   renderItem: (item: T) => ReactNode;
-  expandedId?: number | string | null; // acepta ambos tipos para mayor compatibilidad
+  expandedId?: number | string | null; 
 }
 
 export function AdminTable<T>({

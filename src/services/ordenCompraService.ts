@@ -35,7 +35,7 @@ export class ServiceOrdenCompra {
     return response.data;
   }
 
-  // No envíes 'id', el backend lo genera
+
   public async crearOrden(orden: Omit<OrdenCompra, "id">): Promise<OrdenCompra> {
     const url = `${this.baseURL}`;
     const response: AxiosResponse<OrdenCompra> = await axios.post(url, orden, {
@@ -44,7 +44,7 @@ export class ServiceOrdenCompra {
     return response.data;
   }
 
-  // Permite edición parcial
+
   public async editarOrden(id: number, orden: Partial<OrdenCompra>): Promise<OrdenCompra> {
     const url = `${this.baseURL}/${id}`;
     const response: AxiosResponse<OrdenCompra> = await axios.put(url, orden, {

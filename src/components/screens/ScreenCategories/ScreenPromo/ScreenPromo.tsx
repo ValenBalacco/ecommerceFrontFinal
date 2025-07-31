@@ -18,7 +18,7 @@ const ScreenPromo = () => {
     detalleService
       .getDetalles()
       .then((detalles) => {
-        // Solo productos con precio de compra mayor al de venta y activos
+       
         const soloPromo = detalles.filter(
           (det) =>
             det.producto?.activo !== false &&

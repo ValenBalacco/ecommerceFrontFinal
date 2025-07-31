@@ -6,7 +6,7 @@ import "./Navbar.css";
 export default function Navbar() {
   const navigate = useNavigate();
 
-  // Manejo click usuario
+ 
   const handleUserClick = useCallback(
     (e: MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
@@ -23,19 +23,19 @@ export default function Navbar() {
   return (
     <header>
       <div className="container">
-        {/* Logo */}
+       
         <Link to="/" className="logo">
           a
         </Link>
 
-        {/* Mensaje de bienvenida */}
+        
         <div className="welcome-container">
           <span className="welcome-text">
             ¡Bienvenido a aShop! Encontrá la mejor moda para vos.
           </span>
         </div>
 
-        {/* Iconos del perfil y carrito */}
+       
         <div className="icon-container">
           <a href="#" onClick={handleUserClick}>
             <User size={26} />

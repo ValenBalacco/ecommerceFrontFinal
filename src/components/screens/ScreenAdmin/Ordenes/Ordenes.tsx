@@ -25,7 +25,7 @@ export const Ordenes = () => {
 
   const handleVerDetalle = (orden: OrdenCompra) => {
     setOrdenSeleccionada(orden);
-    // Aquí puedes abrir un modal o mostrar los detalles como prefieras
+   
   };
 
   return (
