@@ -34,13 +34,7 @@ const ScreenHome = () => {
   };
 
   const handlePromoClick = () => {
-    Swal.fire({
-      title: "¡Próximamente!",
-      text: "Las promociones estarán disponibles muy pronto.",
-      icon: "info",
-      confirmButtonText: "Ok",
-      confirmButtonColor: "#175992"
-    });
+    navigate("/promo");
   };
 
   return (

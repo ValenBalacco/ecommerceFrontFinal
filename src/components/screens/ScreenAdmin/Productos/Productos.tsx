@@ -6,7 +6,7 @@ import ModalCrearEditarFormAdmin from "../../../ui/Forms/ModalCrearEditarProduct
 import { ServiceProducto } from "../../../../services/productService";
 import { Detalle } from "../../../../types";
 import { ServiceDetalle } from "../../../../services";
-import { ImagePlus, Pencil, Trash2 } from "lucide-react";
+import { ImagePlus, Pencil, Trash2, CheckCircle2 } from "lucide-react";
 import { ModalCrearEditarDetalle } from "../../../ui/Forms/ModalCrearEditarDetalle/ModalCrearEditarDetalle";
 import { ModalAgregarImagen } from "../../../ui/Forms/ModalAgregarImagen/ModalAgregarImagen";
 import Swal from "sweetalert2";
@@ -21,12 +21,14 @@ export const Productos = () => {
   const [detallesPorProducto, setDetallesPorProducto] = useState<Record<number, Detalle[]>>({});
   const [productoActivoDetalle, setProductoActivoDetalle] = useState<Producto | null>(null);
   const [detalleActivo, setDetalleActivo] = useState<Detalle | null>(null);
+  const [mostrarNoActivos, setMostrarNoActivos] = useState(false); // NUEVO ESTADO
   const productoService = new ServiceProducto();
   const detalleService = new ServiceDetalle();
 
   const fetchProductos = async () => {
     try {
-      const data = await productoService.getProductos();
+      // Pide todos los productos si mostrarNoActivos es true
+      const data = await productoService.getProductos(mostrarNoActivos);
       setProductos(data);
     } catch (error) {
       console.error("Error al cargar productos", error);
@@ -35,7 +37,8 @@ export const Productos = () => {
 
   useEffect(() => {
     fetchProductos();
-  }, []);
+    // Agrega mostrarNoActivos como dependencia para recargar cuando cambie el filtro
+  }, [mostrarNoActivos]);
 
   const handleAdd = () => {
     setProductoActivo(null);
@@ -69,6 +72,24 @@ export const Productos = () => {
       }
     } catch (error) {
       console.error("Error al eliminar producto", error);
+    }
+  };
+
+  const handleEnable = async (producto: Producto) => {
+    try {
+      await productoService.habilitarProducto(producto.id);
+      await fetchProductos();
+      Swal.fire({
+        title: "¡Producto activado!",
+        icon: "success",
+      });
+    } catch (error) {
+      console.error("Error al activar producto", error);
+      Swal.fire({
+        title: "Error",
+        text: "No se pudo activar el producto.",
+        icon: "error",
+      });
     }
   };
 
@@ -128,8 +149,11 @@ export const Productos = () => {
     setModalOpen(false);
   };
 
-  const handleSubmit = async (producto: Producto) => {
+  const handleSubmit = async (
+    producto: Omit<Producto, "detalles" | "itemsOrden" | "categoria" | "id"> & { id?: number }
+  ) => {
     try {
+      // Si producto tiene id, es edición; si no, es creación
       if (producto.id) {
         await productoService.editarProducto(producto.id, {
           nombre: producto.nombre,
@@ -138,12 +162,11 @@ export const Productos = () => {
           sexo: producto.sexo,
         });
         setProductos((prev) =>
-          prev.map((u) => (u.id === producto.id ? producto : u))
+          prev.map((u) => (u.id === producto.id ? { ...u, ...producto } : u))
         );
       } else {
-        const { id, categoria, detalles, itemsOrden, ...productoSinExtras } = producto;
         const nuevoProducto = await productoService.crearProducto({
-          ...productoSinExtras,
+          ...producto,
           categoriaId: producto.categoriaId,
         });
         setProductos((prev) => [...prev, nuevoProducto]);
@@ -160,15 +183,26 @@ export const Productos = () => {
     setModalDetalle(true);
   };
 
+  // Filtrar productos según el estado mostrarNoActivos
+  const productosFiltrados = productos.filter((p) =>
+    mostrarNoActivos ? !p.activo : p.activo
+  );
+
   return (
     <div className={styles.container}>
-      {/* Botón Añadir Talle eliminado */}
+      <div className={styles.topBar}>
+        <button
+          className={styles.toggleButton}
+          onClick={() => setMostrarNoActivos((prev) => !prev)}
+        >
+          {mostrarNoActivos ? "Ver productos activos" : "Ver productos no activos"}
+        </button>
+      </div>
       <AdminTable<Producto>
-        data={productos}
+        data={productosFiltrados}
         onAdd={handleAdd}
         onEdit={handleEdit}
         onArrow={(producto) => toggleDetalle(producto.id)}
-        onDelete={handleDelete}
         onAddItem={handleCreateDetalle}
         expandedId={productoExpandido}
         renderItem={(producto) => (
@@ -187,6 +221,28 @@ export const Productos = () => {
                   {producto.tipoProducto} | Categoría:{" "}
                   {producto.categoria?.nombre || "Sin categoría"}
                 </p>
+                {!producto.activo && (
+                  <span className={styles.inactiveLabel}>No activo</span>
+                )}
+              </div>
+              <div className={styles.containerButtons}>
+                {producto.activo ? (
+                  <span
+                    onClick={() => handleDelete(producto)}
+                    title="Eliminar producto"
+                    style={{ cursor: "pointer" }}
+                  >
+                    <Trash2 size={22} />
+                  </span>
+                ) : (
+                  <span
+                    onClick={() => handleEnable(producto)}
+                    title="Activar producto"
+                    style={{ cursor: "pointer", color: "#28a745" }}
+                  >
+                    <CheckCircle2 size={22} />
+                  </span>
+                )}
               </div>
             </div>
             {productoExpandido === producto.id && (

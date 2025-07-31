@@ -30,7 +30,6 @@ export const ModalCrearEditarDetalle: FC<IProps> = ({
   });
   const [precioState, setPrecioState] = useState({
     precioCompra: detalle?.precios?.[0]?.precioCompra || 0,
-    precioVenta: detalle?.precios?.[0]?.precioVenta || 0,
     descuentoId: detalle?.precios?.[0]?.descuentoId || 0,
   });
 
@@ -59,7 +58,6 @@ export const ModalCrearEditarDetalle: FC<IProps> = ({
     });
     setPrecioState({
       precioCompra: detalle?.precios?.[0]?.precioCompra || 0,
-      precioVenta: detalle?.precios?.[0]?.precioVenta || 0,
       descuentoId: detalle?.precios?.[0]?.descuentoId || 0,
     });
   }, [detalle]);
@@ -82,12 +80,35 @@ export const ModalCrearEditarDetalle: FC<IProps> = ({
         detalleCreado = await serviceDetalle.crearDetalle(detallePayload);
       }
 
+      // Busca el porcentaje de descuento seleccionado y verifica su vigencia
+      const descuentoSeleccionado = descuentosDisponibles.find(
+        (d) => d.id === precioState.descuentoId
+      );
+
+      const hoy = new Date();
+      const inicio = descuentoSeleccionado ? new Date(descuentoSeleccionado.fechaInicio) : null;
+      const fin = descuentoSeleccionado ? new Date(descuentoSeleccionado.fechaFin) : null;
+
+      const descuentoVigente =
+        descuentoSeleccionado &&
+        inicio &&
+        fin &&
+        hoy >= inicio &&
+        hoy <= fin;
+
+      const descuentoPorcentaje = Number(descuentoVigente ? descuentoSeleccionado?.porcentaje : 0);
+      const precioVenta =
+        precioState.precioCompra -
+        (precioState.precioCompra * descuentoPorcentaje / 100);
+
+      // Si el precioVenta es NaN, ponlo en 0
       const precioPayload = {
         precioCompra: precioState.precioCompra,
-        precioVenta: precioState.precioVenta,
+        precioVenta: isNaN(precioVenta) ? precioState.precioCompra : precioVenta,
         detalleId: detalleCreado.id,
-        descuentoId: precioState.descuentoId,
+        descuentoId: descuentoVigente ? precioState.descuentoId : null, // null si no hay descuento vigente
       };
+
       if (detalle?.precios?.[0]?.id) {
         await servicePrecio.editarPrecio(detalle.precios[0].id, precioPayload);
       } else {
@@ -124,11 +145,32 @@ export const ModalCrearEditarDetalle: FC<IProps> = ({
     const { name, value } = e.target;
     setPrecioState((prev) => ({
       ...prev,
-      [name]: name === "precioCompra" || name === "precioVenta" || name === "descuentoId"
+      [name]: name === "precioCompra"
         ? Number(value)
+        : name === "descuentoId"
+        ? value === "" ? null : Number(value)
         : value,
     }));
   };
+
+  // Calcula el precio de venta en tiempo real para mostrarlo
+  const descuentoSeleccionado = descuentosDisponibles.find(
+    (d) => d.id === precioState.descuentoId
+  );
+  const hoy = new Date();
+  const inicio = descuentoSeleccionado ? new Date(descuentoSeleccionado.fechaInicio) : null;
+  const fin = descuentoSeleccionado ? new Date(descuentoSeleccionado.fechaFin) : null;
+
+  const descuentoVigente =
+    descuentoSeleccionado &&
+    inicio &&
+    fin &&
+    hoy >= inicio &&
+    hoy <= fin;
+
+  const descuentoPorcentaje = descuentoVigente ? descuentoSeleccionado.porcentaje : 0;
+  const precioVentaCalculado =
+    precioState.precioCompra - (precioState.precioCompra * descuentoPorcentaje / 100);
 
   return (
     <div className={styles.overlay}>
@@ -199,34 +241,28 @@ export const ModalCrearEditarDetalle: FC<IProps> = ({
             />
           </div>
           <div className={styles.formGroup}>
-            <label>Precio Venta</label>
-            <input
-              type="number"
-              name="precioVenta"
-              value={precioState.precioVenta}
-              onChange={handlePrecioChange}
-              required
-              min={0}
-            />
-          </div>
-          <div className={styles.formGroup}>
             <label>Descuento</label>
             <select
               name="descuentoId"
-              value={precioState.descuentoId}
+              value={precioState.descuentoId === 0 ? "" : precioState.descuentoId}
               onChange={handlePrecioChange}
-              required
             >
-              <option disabled value={0}>
-                Selecciona un descuento
-              </option>
+              <option value="">Sin descuento</option>
               {descuentosDisponibles.map((descuento) => (
                 <option key={descuento.id} value={descuento.id}>
-                  {/* Ejemplo label: 15% (2024-01-01 a 2024-06-30) */}
                   {`${descuento.porcentaje}% (${new Date(descuento.fechaInicio).toLocaleDateString()} a ${new Date(descuento.fechaFin).toLocaleDateString()})`}
                 </option>
               ))}
             </select>
+          </div>
+          <div className={styles.formGroup}>
+            <label>Precio Venta (calculado)</label>
+            <input
+              type="number"
+              value={isNaN(precioVentaCalculado) ? 0 : precioVentaCalculado}
+              readOnly
+              disabled
+            />
           </div>
           <div className={styles.buttonContainer}>
             <button

@@ -5,6 +5,8 @@ import { useNavigate } from "react-router";
 import { Descuento } from "../../../../types";
 import { useCartStore } from "../../../../store/useCartStore";
 import Swal from "sweetalert2";
+// Ajusta el path según la ubicación real del archivo descuentos.ts
+import { isDescuentoActivo } from "../../../../helpers/descuentos";
 
 interface IProps {
   products: Detalle;
@@ -15,38 +17,42 @@ const CardProducts: FC<IProps> = ({ products }) => {
 
   const precioObj = products.precios?.[0];
   const descuento: Descuento | undefined = precioObj?.descuento;
+
+  const precioCompra = precioObj?.precioCompra ?? 0;
   const precioVenta = precioObj?.precioVenta ?? 0;
-
-  const isDescuentoActivo = (descuento: Descuento | undefined): boolean => {
-    if (!descuento) return false;
-    const hoy = new Date();
-    const fechaInicio = new Date(descuento.fechaInicio);
-    const fechaFin = new Date(descuento.fechaFin);
-    return hoy >= fechaInicio && hoy <= fechaFin;
-  };
-
   const descuentoActivo = isDescuentoActivo(descuento);
+  const porcentaje = descuento?.porcentaje ?? 0;
 
-  const calcularDescuento = (
-    precioVenta: number,
-    porcentajeDescuento: number
-  ) => {
-    if (porcentajeDescuento <= 0) {
-      return precioVenta;
-    }
-    return precioVenta - precioVenta * (porcentajeDescuento / 100);
-  };
-
-  if (!products || !products.producto) {
-    return <div>Producto no disponible</div>;
-  }
-
-  const imgPrincipal = products.imgs?.[0];
-
+  // Mostrar precio tachado siempre que el precio de compra sea mayor al de venta
+  const mostrarPrecioTachado = precioCompra > precioVenta;
 
   const handleAddToCart = () => {
     const nombreProducto = products.producto?.nombre ?? null;
     const precioVenta = products.precios?.[0]?.precioVenta;
+    const stockMaximo = products.stock ?? 0;
+
+    // Obtiene la cantidad actual en el carrito para este detalle
+    const itemsCarrito = useCartStore.getState().items;
+    const cantidadEnCarrito =
+      itemsCarrito.find((i) => i.detalleId === products.id)?.cantidad ?? 0;
+
+    if (stockMaximo === 0) {
+      Swal.fire(
+        "Producto no disponible",
+        "No hay stock disponible para este producto.",
+        "error"
+      );
+      return;
+    }
+
+    if (cantidadEnCarrito >= stockMaximo) {
+      Swal.fire(
+        "Stock máximo en carrito",
+        "Ya tienes todos los productos disponibles en el carrito.",
+        "warning"
+      );
+      return;
+    }
 
     if (
       !nombreProducto ||
@@ -63,6 +69,7 @@ const CardProducts: FC<IProps> = ({ products }) => {
     }
 
     const itemCarrito = {
+      productoId: products.producto?.id ?? 0,
       detalleId: products.id,
       nombre: nombreProducto,
       imagen: products.imgs?.[0]?.url || "",
@@ -74,6 +81,12 @@ const CardProducts: FC<IProps> = ({ products }) => {
     useCartStore.getState().agregar(itemCarrito);
     Swal.fire("¡Agregado!", "El producto fue agregado al carrito.", "success");
   };
+
+  if (!products || !products.producto) {
+    return <div>Producto no disponible</div>;
+  }
+
+  const imgPrincipal = products.imgs?.[0];
 
   return (
     <div className={styles.productCard}>
@@ -99,24 +112,27 @@ const CardProducts: FC<IProps> = ({ products }) => {
           <p className={styles.productName}>
             {products.producto?.nombre ?? "Sin nombre"} {products.color}
           </p>
-          <p className={styles.productPrice}>
-            {descuentoActivo && descuento ? (
-              <>
+          <div className={styles.productPrice}>
+            {mostrarPrecioTachado ? (
+              <div>
                 <span className={styles.precioTachado}>
-                  ${precioVenta}
+                  ${precioCompra.toFixed(2)}
                 </span>
-                <span className={styles.totalDescuento}>
-                  $
-                  {calcularDescuento(
-                    precioVenta,
-                    descuento.porcentaje
-                  ).toFixed(2)}
+                <br />
+                <span
+                  className={styles.precioConDescuento}
+                  style={{ fontSize: "2em", fontWeight: "bold" }}
+                >
+                  ${precioVenta.toFixed(2)}
                 </span>
-              </>
+                {porcentaje > 0 && (
+                  <span className={styles.descuentoBadge}>{porcentaje}% OFF</span>
+                )}
+              </div>
             ) : (
-              <>${precioVenta}</>
+              <span className={styles.precioNormal}>${precioVenta.toFixed(2)}</span>
             )}
-          </p>
+          </div>
         </div>
 
         <div className={styles.productActions}>

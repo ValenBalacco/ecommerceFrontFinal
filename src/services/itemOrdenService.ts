@@ -35,16 +35,22 @@ export class ServiceItemOrden {
     return response.data;
   }
 
-  // No envíes 'id' al crear; el backend lo genera
+  // Crear: solo envía cantidad, ordenCompraId, productoId, detalleId
   public async crearItemOrden(itemOrden: Omit<ItemOrden, "id">): Promise<ItemOrden> {
     const url = `${this.baseURL}`;
-    const response: AxiosResponse<ItemOrden> = await axios.post(url, itemOrden, {
+    const payload = {
+      cantidad: itemOrden.cantidad,
+      ordenCompraId: itemOrden.ordenCompraId,
+      productoId: itemOrden.productoId,
+      detalleId: itemOrden.detalleId,
+    };
+    const response: AxiosResponse<ItemOrden> = await axios.post(url, payload, {
       headers: this.getAuthHeaders(),
     });
     return response.data;
   }
 
-  // Permite edición parcial
+  // Editar: permite edición parcial
   public async editarItemOrden(id: number, itemOrden: Partial<ItemOrden>): Promise<ItemOrden> {
     const url = `${this.baseURL}/${id}`;
     const response: AxiosResponse<ItemOrden> = await axios.put(url, itemOrden, {

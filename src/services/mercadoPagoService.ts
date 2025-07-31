@@ -4,7 +4,16 @@ import { ItemCarrito } from "../types";
 
 const API_URL = import.meta.env.VITE_URL_MERCADOPAGO;
 
-export const handlePagar = async (itemsMP: ItemCarrito[]): Promise<boolean> => {
+
+function total(items: ItemCarrito[]): number {
+  return items.reduce(
+    (sum: number, item: ItemCarrito) =>
+      sum + (item.unit_price || 0) * (item.quantity || 1),
+    0
+  );
+}
+
+export const handlePagar = async (itemsMP: ItemCarrito[], direccionSeleccionadaId: number): Promise<boolean> => {
   const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
   const token = localStorage.getItem("token");
 
@@ -28,8 +37,17 @@ export const handlePagar = async (itemsMP: ItemCarrito[]): Promise<boolean> => {
     const response = await axios.post(
       `${API_URL}/crear-preferencia`,
       {
-        items: itemsMP,
+        items: itemsMP.map(item => ({
+          productoId: item.productoId,
+          detalleId: item.detalleId,
+          title: item.title,
+          quantity: item.quantity,
+          unit_price: item.unit_price,
+          currency_id: item.currency_id,
+        })),
         email: usuario.email,
+        usuarioId: usuario.id,
+        direccionEnvioId: direccionSeleccionadaId,
       },
       {
         headers: {
@@ -46,11 +64,22 @@ export const handlePagar = async (itemsMP: ItemCarrito[]): Promise<boolean> => {
       throw new Error("init_point no recibido");
     }
 
-    window.location.href = initPoint;
+    localStorage.setItem("checkout_data", JSON.stringify({
+      items: itemsMP.map(item => ({
+        productoId: item.productoId, // <-- AGREGA ESTO
+        detalleId: item.detalleId,
+        cantidad: item.quantity,
+      })),
+      direccionEnvioId: direccionSeleccionadaId,
+      usuario: usuario,
+    }));
+
+    // Luego rediriges a Mercado Pago o a la pantalla de éxito
+    window.location.href = initPoint; // o navigate("/checkout-success")
     return true;
   } catch (error) {
     console.error("Error al iniciar pago:", error);
     Swal.fire("Error", "No se pudo iniciar el pago", "error");
     return false;
   }
-};
+}

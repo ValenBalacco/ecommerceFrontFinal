@@ -20,7 +20,7 @@ const ScreenHombre = () => {
       .getDetalles()
       .then((detalles) => {
         const soloHombres = detalles.filter(
-          (det) => det.producto?.sexo === "MASCULINO"
+          (det) => det.producto?.sexo === "MASCULINO" && det.producto?.activo !== false
         );
         setProductosHombre(soloHombres);
       })

@@ -22,13 +22,25 @@ export class ServicePrecio {
 
   public async crearPrecio(precio: {
     precioCompra: number;
-    precioVenta: number;
     detalleId: number;
-    descuentoId: number; // Descuento obligatorio
+    descuentoId: number | null; // Permitir null si no hay descuento vigente
+    descuentoPorcentaje: number;
   }): Promise<Precio> {
     const url = `${this.baseURL}`;
-    console.log("Enviando a backend (crearPrecio):", precio);
-    const response: AxiosResponse<Precio> = await axios.post(url, precio, {
+
+    const precioVenta =
+      precio.precioCompra -
+      (precio.precioCompra * (precio.descuentoPorcentaje || 0)) / 100;
+
+    const payload = {
+      precioCompra: precio.precioCompra,
+      precioVenta: isNaN(precioVenta) ? precio.precioCompra : precioVenta,
+      detalleId: precio.detalleId,
+      descuentoId: precio.descuentoId,
+    };
+
+    console.log("Enviando a backend (crearPrecio):", payload);
+    const response: AxiosResponse<Precio> = await axios.post(url, payload, {
       headers: this.getAuthHeaders(),
     });
     return response.data;
@@ -40,12 +52,33 @@ export class ServicePrecio {
       precioCompra?: number;
       precioVenta?: number;
       detalleId?: number;
-      descuentoId?: number;
+      descuentoId?: number | null;
+      descuentoPorcentaje?: number;
     }
   ): Promise<Precio> {
     const url = `${this.baseURL}/${id}`;
-    console.log("Enviando a backend (editarPrecio):", precio);
-    const response: AxiosResponse<Precio> = await axios.put(url, precio, {
+    let payload = { ...precio };
+
+    // Recalcula precioVenta si tienes precioCompra y descuentoPorcentaje
+    if (
+      typeof precio.precioCompra === "number" &&
+      typeof precio.descuentoPorcentaje === "number"
+    ) {
+      const precioVenta =
+        precio.precioCompra -
+        (precio.precioCompra * (precio.descuentoPorcentaje || 0)) / 100;
+      payload.precioVenta = isNaN(precioVenta)
+        ? precio.precioCompra
+        : precioVenta;
+    }
+
+    // Si no hay descuento vigente, asegúrate de enviar null
+    if (payload.descuentoId === undefined) {
+      payload.descuentoId = null;
+    }
+
+    console.log("Enviando a backend (editarPrecio):", payload);
+    const response: AxiosResponse<Precio> = await axios.put(url, payload, {
       headers: this.getAuthHeaders(),
     });
     return response.data;

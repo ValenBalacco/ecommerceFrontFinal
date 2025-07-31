@@ -13,6 +13,7 @@ import ScreenClothes from "../components/screens/ScreenClothes/ScreenClothes";
 import CheckoutSuccess from "../components/screens/CheckoutSuccess";
 import CheckoutFailure from "../components/screens/CheckoutFailure";
 import CheckoutPending from "../components/screens/CheckoutPending";
+import ScreenPromo from "../components/screens/ScreenCategories/ScreenPromo/ScreenPromo";
 
 const AppRouter = () => {
 
@@ -65,6 +66,10 @@ const AppRouter = () => {
 			<Route
 				path="/zapatillas"
 				element={<ScreenZapatillas />}
+			/>
+			<Route
+				path="/promo"
+				element={<ScreenPromo />}
 			/>
     {/* Rutas de Mercado Pago */}
     <Route path="/checkout/success" element={<CheckoutSuccess />} />

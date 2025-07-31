@@ -16,6 +16,7 @@ export const ModalCrearEditarCategoria: FC<IProps> = ({
 }) => {
   const [formState, setFormState] = useState<Omit<Categoria, "id">>({
     nombre: categoria?.nombre || "",
+    activo: categoria?.activo ?? true,
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

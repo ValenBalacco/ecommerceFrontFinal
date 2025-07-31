@@ -21,8 +21,10 @@ export class ServiceProducto {
       : { "Content-Type": "application/json" };
   }
 
-  public async getProductos(): Promise<Producto[]> {
-    const url = `${this.baseURL}`;
+  public async getProductos(incluirNoActivos = false): Promise<Producto[]> {
+    const url = incluirNoActivos
+      ? `${this.baseURL}?incluirNoActivos=true`
+      : this.baseURL;
     console.log("Llamando GET a:", url); 
     try {
       const response: AxiosResponse<Producto[]> = await axios.get(url, {
@@ -86,8 +88,20 @@ export class ServiceProducto {
 
   public async eliminarProducto(id: number): Promise<void> {
     const url = `${this.baseURL}/${id}`;
-    await axios.delete(url, {
-      headers: this.getAuthHeaders(),
-    });
+    // Eliminado lógico: solo actualiza el campo activo a false
+    await axios.put(
+      url,
+      { activo: false },
+      { headers: this.getAuthHeaders() }
+    );
+  }
+
+  public async habilitarProducto(id: number): Promise<void> {
+    const url = `${this.baseURL}/productos/${id}/enable`;
+    await axios.patch(
+      url,
+      {},
+      { headers: this.getAuthHeaders() }
+    );
   }
 }

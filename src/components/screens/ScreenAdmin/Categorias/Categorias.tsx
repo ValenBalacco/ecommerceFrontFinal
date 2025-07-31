@@ -1,3 +1,4 @@
+import { CheckCircle2, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import styles from "./Categorias.module.css";
 import { ModalCrearEditarCategoria } from "../../../ui/Forms/ModalCrearEditarCategoria/ModalCrearEditarCategoria";
@@ -10,22 +11,22 @@ export const Categorias = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [categoriaActiva, setCategoriaActiva] = useState<Categoria | null>(null);
+  const [mostrarNoActivas, setMostrarNoActivas] = useState(false);
 
   const categoriaService = new ServiceCategoria();
 
-  useEffect(() => {
-    fetchCategorias();
-   
-  }, []);
-
   const fetchCategorias = async () => {
     try {
-      const data = await categoriaService.getCategorias();
+      const data = await categoriaService.getCategorias(mostrarNoActivas);
       setCategorias(data);
     } catch (error) {
       console.error("Error al cargar categorias", error);
     }
   };
+
+  useEffect(() => {
+    fetchCategorias();
+  }, [mostrarNoActivas]);
 
   const handleAdd = () => {
     setCategoriaActiva(null);
@@ -62,8 +63,27 @@ export const Categorias = () => {
     }
   };
 
+  const handleEnable = async (categoria: Categoria) => {
+    try {
+      await categoriaService.habilitarCategoria(categoria.id);
+      await fetchCategorias();
+      Swal.fire({
+        title: "¡Categoría activada!",
+        icon: "success",
+      });
+    } catch (error) {
+      console.error("Error al activar categoría", error);
+      Swal.fire({
+        title: "Error",
+        text: "No se pudo activar la categoría.",
+        icon: "error",
+      });
+    }
+  };
+
   const handleCloseModal = () => {
     setModalOpen(false);
+    setCategoriaActiva(null);
   };
 
   const handleSubmit = async (categoria: Categoria) => {
@@ -71,12 +91,13 @@ export const Categorias = () => {
       if (categoria.id) {
         await categoriaService.editarCategoria(categoria.id, {
           nombre: categoria.nombre,
+          activo: categoria.activo,
         });
       } else {
         const { id, ...categoriaSinId } = categoria;
         await categoriaService.crearCategoria(categoriaSinId);
       }
-      fetchCategorias();
+      await fetchCategorias();
       setModalOpen(false);
     } catch (error) {
       console.error("Error al guardar categoría", error);
@@ -85,15 +106,41 @@ export const Categorias = () => {
 
   return (
     <div className={styles.container}>
+      <button
+        className={styles.toggleButton}
+        onClick={() => setMostrarNoActivas((prev) => !prev)}
+      >
+        {mostrarNoActivas ? " Solo ver categorías activas" : "Ver categorías no activas"}
+      </button>
       <AdminTable<Categoria>
         data={categorias}
         onAdd={handleAdd}
         onEdit={handleEdit}
-        onDelete={handleDelete}
         renderItem={(cat) => (
-          <p>
-            <strong>Nombre:</strong> {cat.nombre}
-          </p>
+          <div className={styles.categoriaItem}>
+            <p>
+              <strong>Nombre:</strong> {cat.nombre}
+            </p>
+            <div className={styles.containerButtons}>
+              {cat.activo ? (
+                <span
+                  onClick={() => handleDelete(cat)}
+                  title="Eliminar categoría"
+                  style={{ cursor: "pointer" }}
+                >
+                  <Trash2 size={22} />
+                </span>
+              ) : (
+                <span
+                  onClick={() => handleEnable(cat)}
+                  title="Activar categoría"
+                  style={{ cursor: "pointer", color: "#28a745" }}
+                >
+                  <CheckCircle2 size={22} />
+                </span>
+              )}
+            </div>
+          </div>
         )}
       />
 

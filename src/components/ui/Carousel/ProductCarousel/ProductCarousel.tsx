@@ -13,9 +13,13 @@ interface IProps {
 }
 
 const ProductCarousel: FC<IProps> = ({ products }) => {
-
   const slidesPerView = 4;
   const loopEnabled = products.length > slidesPerView;
+
+
+  const productosActivos = products.filter(
+    (detalle) => detalle.producto?.activo !== false
+  );
 
   return (
     <Swiper
@@ -44,7 +48,7 @@ const ProductCarousel: FC<IProps> = ({ products }) => {
         },
       }}
     >
-      {products?.map((product) => (
+      {productosActivos?.map((product) => (
         <SwiperSlide key={product.id} className={styles.swiperSlide}>
           <CardProducts products={product} />
         </SwiperSlide>

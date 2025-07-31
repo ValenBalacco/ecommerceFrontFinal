@@ -1,6 +1,10 @@
 import axios, { type AxiosResponse } from "axios";
 import { type Img } from "../types";
+import { uploadToCloudinary } from "../helpers/uploadToCloudinary";
+
 const imgService = import.meta.env.VITE_URL_IMG;
+const cloudinaryPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+const cloudinaryName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 
 export class ServiceImg {
   private baseURL: string;
@@ -35,12 +39,25 @@ export class ServiceImg {
     return response.data;
   }
 
-  // Solo acepta { url, detalleId }
-  public async crearImg(img: { url: string; detalleId: number }): Promise<Img> {
+  /**
+   * Sube la imagen a Cloudinary y luego guarda la URL en tu backend.
+   * @param file Archivo de imagen a subir.
+   * @param detalleId ID del detalle al que pertenece la imagen.
+   */
+  public async crearImgConCloudinary(file: File, detalleId: number): Promise<Img> {
+    // 1. Subir imagen a Cloudinary
+    const cloudinaryRes = await uploadToCloudinary(
+      file,
+      cloudinaryPreset,
+      cloudinaryName
+    );
+    // 2. Guardar la URL en tu backend
     const url = `${this.baseURL}`;
-    const response: AxiosResponse<Img> = await axios.post(url, img, {
-      headers: this.getAuthHeaders(),
-    });
+    const response: AxiosResponse<Img> = await axios.post(
+      url,
+      { url: cloudinaryRes.secure_url, detalleId },
+      { headers: this.getAuthHeaders() }
+    );
     return response.data;
   }
 

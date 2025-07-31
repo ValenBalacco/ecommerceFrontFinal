@@ -20,7 +20,7 @@ const ScreenNiño = () => {
       .getDetalles()
       .then((detalles) => {
         const soloInfantil = detalles.filter(
-          (det) => det.producto?.sexo === "INFANTIL"
+          (det) => det.producto?.sexo === "INFANTIL" && det.producto?.activo !== false
         );
         setProductosInfantil(soloInfantil);
       })

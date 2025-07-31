@@ -16,7 +16,6 @@ const ModalVerUsuario = ({ user, onClose }: { user: Usuario; onClose: () => void
       <ul className={styles.datosUsuarioLista}>
         <li><strong>Nombre:</strong> {user.nombre}</li>
         <li><strong>Email:</strong> {user.email}</li>
-        <li><strong>ID:</strong> {user.id}</li>
         {user.rol && <li><strong>Rol:</strong> {user.rol}</li>}
         {user.dni && <li><strong>DNI:</strong> {user.dni}</li>}
         {/* Agrega aquí más campos según el modelo de Usuario */}
@@ -145,10 +144,25 @@ export const ScreenUser = () => {
                           <p>
                             <strong>Productos:</strong>
                           </p>
-                          <ul>
+                          <ul className={styles.listaProductos}>
                             {orden.items?.map((item) => (
-                              <li key={item.id}>
-                                {item.producto?.nombre ?? "Sin nombre"} - Cantidad: {item.cantidad}
+                              <li key={item.id} className={styles.productoItem}>
+                                <div className={styles.productoHeader}>
+                                  <span className={styles.productoNombre}>
+                                    <strong>{item.producto?.nombre ?? "Sin nombre"}</strong>
+                                  </span>
+                                  <span className={styles.productoCantidad}>
+                                    x{item.cantidad}
+                                  </span>
+                                </div>
+                                <div className={styles.productoDetalles}>
+                                  <span>
+                                    <strong>Color:</strong> {item.detalle?.color ?? "Sin color"}
+                                  </span>
+                                  <span>
+                                    <strong>Talle:</strong> {item.detalle?.talle?.talle ?? "Sin talle"}
+                                  </span>
+                                </div>
                               </li>
                             ))}
                           </ul>

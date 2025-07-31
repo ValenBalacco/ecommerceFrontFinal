@@ -1,6 +1,6 @@
 import Header from "../../../ui/Header/Navbar";
 import Footer from "../../../ui/Footer/Footer";
-import styles from "./ScreenWomen.module.css";
+import styles from "../ScreenNiño/ScreenNiño.module.css";
 import CardProducts from "../../../ui/Cards/CardProducts/CardProducts";
 import SidebarFilter from "../../../ui/SidebarFilter/SidebarFilter";
 import { useEffect, useState } from "react";
@@ -8,26 +8,30 @@ import { Detalle } from "../../../../types";
 import { ServiceDetalle } from "../../../../services";
 import { useFilterStore } from "../../../../store/filterStore";
 
-const ScreenWomen = () => {
-  const [productosMujer, setProductosMujer] = useState<Detalle[]>([]);
+const ScreenPromo = () => {
+  const [productosPromo, setProductosPromo] = useState<Detalle[]>([]);
   const { orden, categoria, tipoProducto, talle, minPrecio, maxPrecio } =
     useFilterStore();
 
   useEffect(() => {
     const detalleService = new ServiceDetalle();
-    // Trae todos los detalles y filtra por género en el front
     detalleService
       .getDetalles()
       .then((detalles) => {
-        const soloMujeres = detalles.filter(
-          (det) => det.producto?.sexo === "FEMENINO" && det.producto?.activo !== false
+        // Solo productos con precio de compra mayor al de venta y activos
+        const soloPromo = detalles.filter(
+          (det) =>
+            det.producto?.activo !== false &&
+            det.precios?.[0]?.precioCompra !== undefined &&
+            det.precios?.[0]?.precioVenta !== undefined &&
+            det.precios[0].precioCompra > det.precios[0].precioVenta
         );
-        setProductosMujer(soloMujeres);
+        setProductosPromo(soloPromo);
       })
-      .catch(() => setProductosMujer([]));
+      .catch(() => setProductosPromo([]));
   }, []);
 
-  const productosFiltrados = productosMujer.filter((producto) => {
+  const productosFiltrados = productosPromo.filter((producto) => {
     const coincideCategoria =
       categoria.length === 0 ||
       categoria.includes(producto.producto.categoria?.nombre?.toLowerCase() ?? "");
@@ -42,7 +46,6 @@ const ScreenWomen = () => {
         ? talle.includes(producto.talle.talle.toLowerCase())
         : true);
 
-    // CAMBIO: precio ahora es producto.precios?.[0]?.precioVenta
     const precioVenta = producto.precios?.[0]?.precioVenta ?? 0;
 
     const coincideMinPrecio = minPrecio === null || precioVenta >= minPrecio;
@@ -70,7 +73,7 @@ const ScreenWomen = () => {
   });
 
   return (
-    <div className={styles.screenWomen}>
+    <div className={styles.screenKids}>
       <Header />
 
       <div className={styles.backgroundImage}></div>
@@ -93,4 +96,4 @@ const ScreenWomen = () => {
   );
 };
 
-export default ScreenWomen;
+export default ScreenPromo;

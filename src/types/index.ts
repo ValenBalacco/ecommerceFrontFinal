@@ -6,13 +6,14 @@ export interface Categoria {
   id: number;
   nombre: string;
   productos?: Producto[];
+  activo: boolean;
 }
 
 export interface Descuento {
   id: number;
   porcentaje: number;
-  fechaInicio: Date;
-  fechaFin: Date;
+  fechaInicio: string; // Prisma usa DateTime, pero en TS usa string (ISO)
+  fechaFin: string;
   precios?: Precio[];
 }
 
@@ -41,10 +42,10 @@ export interface Producto {
   sexo: string;
   detalles?: Detalle[];
   itemsOrden?: ItemOrden[];
+  activo: boolean;
 }
 
 export interface Detalle {
-  descripcion: string;
   id: number;
   color: string;
   estado: string;
@@ -55,6 +56,7 @@ export interface Detalle {
   talleId: number;
   imgs?: Img[];
   precios?: Precio[];
+  descripcion?: string; // Opcional, no está en Prisma pero lo usas en TS
 }
 
 export interface Img {
@@ -63,6 +65,7 @@ export interface Img {
   detalle: Detalle;
   detalleId: number;
 }
+
 export interface Usuario {
   id: string;
   nombre: string;
@@ -86,7 +89,6 @@ export interface UsuarioDireccion {
 export interface OrdenCompra {
   id: number;
   total: number;
-  descuento: number;
   fechaCompra: string;
   usuario: Usuario;
   usuarioId: string;
@@ -98,10 +100,11 @@ export interface OrdenCompra {
 export interface ItemOrden {
   id: number;
   cantidad: number;
-  ordenCompra: OrdenCompra;
   ordenCompraId: number;
-  producto: Producto;
   productoId: number;
+  detalleId: number;
+  producto?: Producto; // <-- agrega esto
+  detalle?: Detalle;   // <-- y esto si lo necesitas
 }
 
 export interface Precio {
@@ -115,10 +118,10 @@ export interface Precio {
 }
 
 export interface ItemCarrito {
+  productoId: number;
+  detalleId: number;
   title: string;
   quantity: number;
   unit_price: number;
-  picture_url?: string;
-  category_id?: string;
   currency_id?: string;
 }

@@ -11,7 +11,10 @@ const sexos = ["MASCULINO", "FEMENINO", "INFANTIL"];
 interface IProps {
   closeModal: () => void;
   producto?: Producto | null;
-  onSubmit?: (producto: Omit<Producto, "id" | "detalles" | "itemsOrden" | "categoria">) => void;
+  // id debe ser opcional
+  onSubmit?: (
+    producto: Omit<Producto, "detalles" | "itemsOrden" | "categoria" | "id"> & { id?: number }
+  ) => Promise<void>;
 }
 
 const ModalCrearEditarProducto: FC<IProps> = ({
@@ -59,10 +62,12 @@ const ModalCrearEditarProducto: FC<IProps> = ({
       }
       // Solo los campos simples, NO enviar categoria ni detalles ni itemsOrden
       const newProducto = {
+        ...(producto?.id ? { id: producto.id } : {}),
         nombre: formState.nombre,
         categoriaId: categoria.id,
         tipoProducto: formState.tipoProducto,
         sexo: formState.sexo,
+        activo: producto?.activo ?? true,
       };
       await onSubmit?.(newProducto);
       Swal.fire({

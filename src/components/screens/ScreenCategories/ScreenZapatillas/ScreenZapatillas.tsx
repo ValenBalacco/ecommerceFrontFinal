@@ -20,7 +20,8 @@ const ScreenZapatillas = () => {
       .then((detalles) => {
         const soloZapatillas = detalles.filter(
           (det) =>
-            det.producto?.categoria?.nombre?.toLowerCase() === "zapatillas"
+            det.producto?.tipoProducto === "ZAPATILLA" && // <-- filtra por tipoProducto
+            det.producto?.activo !== false // Solo productos activos
         );
         setProductosZapatillas(soloZapatillas);
       })

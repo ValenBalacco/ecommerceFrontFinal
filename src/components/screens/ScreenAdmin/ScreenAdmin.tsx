@@ -9,10 +9,15 @@ import { Usuarios } from "./Usuarios/Usuarios";
 import { Ordenes } from "./Ordenes/Ordenes";
 import { Talles } from "./Talle/Talle";
 import { ServiceDetalle } from "../../../services";
+import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../../store/useAuthStore";
+import { Descuentos } from "./Descuentos/Descuentos";
 
-type Tab = "productos" | "categorias" | "talles" | "usuarios" | "ordenes";
+type Tab = "productos" | "categorias" | "talles" | "usuarios" | "ordenes" | "descuentos";
 
 const ScreenAdmin = () => {
+  const navigate = useNavigate();
+  const usuario = useAuthStore((state) => state.usuario);
   const setDetalle = detalleStore((state) => state.setDetalle);
   const [activeTab, setActiveTab] = useState<Tab>("productos");
 
@@ -28,6 +33,8 @@ const ScreenAdmin = () => {
         return <Usuarios />;
       case "ordenes":
         return <Ordenes />;
+      case "descuentos":
+        return <Descuentos />;
       default:
         return null;
     }
@@ -44,8 +51,13 @@ const ScreenAdmin = () => {
       }
     };
     fetchPedido();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (!usuario || usuario.rol !== "ADMIN") {
+      navigate("/home"); 
+    }
+  }, [usuario, navigate]);
 
   return (
     <>
@@ -82,6 +94,12 @@ const ScreenAdmin = () => {
               onClick={() => setActiveTab("ordenes")}
             >
               Ordenes
+            </button>
+            <button
+              className={`${activeTab === "descuentos" ? styles.active : ""}`}
+              onClick={() => setActiveTab("descuentos")}
+            >
+              Descuentos
             </button>
           </nav>
           <div className={styles.tabContent}>{cargarContenido()}</div>

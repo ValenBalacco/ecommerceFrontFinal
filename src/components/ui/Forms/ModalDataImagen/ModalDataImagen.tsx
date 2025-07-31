@@ -15,23 +15,22 @@ export const ModalDataImagen: FC<IProps> = ({
   detalle,
   onImagenCreada,
 }) => {
-  const [url, setUrl] = useState<string>("");
+  const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
   const imgService = new ServiceImg();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUrl(e.target.value);
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!file) return;
+    setLoading(true);
     try {
-      // Solo enviar url y detalleId, no enviar detalle
-      const payload = {
-        url,
-        detalleId: detalle.id,
-      };
-
-      await imgService.crearImg(payload);
+      await imgService.crearImgConCloudinary(file, detalle.id);
       Swal.fire({
         title: "Imagen Añadida!",
         icon: "success",
@@ -47,6 +46,8 @@ export const ModalDataImagen: FC<IProps> = ({
           "Hubo un problema al guardar Imagen.",
         icon: "error",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,10 +59,9 @@ export const ModalDataImagen: FC<IProps> = ({
           <input
             className={styles.formInput}
             onChange={handleChange}
-            type="text"
-            name="url"
-            value={url}
-            placeholder="Ingrese la URL de la imagen"
+            type="file"
+            name="file"
+            accept="image/*"
             required
           />
           <div className={styles.buttonContainer}>
@@ -69,11 +69,12 @@ export const ModalDataImagen: FC<IProps> = ({
               type="button"
               className={styles.cancelButton}
               onClick={closeModal}
+              disabled={loading}
             >
               Cancelar
             </button>
-            <button className={styles.submitButton} type="submit">
-              Confirmar
+            <button className={styles.submitButton} type="submit" disabled={loading}>
+              {loading ? "Subiendo..." : "Confirmar"}
             </button>
           </div>
         </form>

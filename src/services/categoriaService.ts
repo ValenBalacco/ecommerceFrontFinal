@@ -19,45 +19,31 @@ export class ServiceCategoria {
       : { "Content-Type": "application/json" };
   }
 
-  public async getCategorias(): Promise<Categoria[]> {
-    const url = `${this.baseURL}`;
+  public async getCategorias(incluirNoActivas = false): Promise<Categoria[]> {
+    const url = incluirNoActivas
+      ? `${this.baseURL}?incluirNoActivas=true`
+      : this.baseURL;
     const response: AxiosResponse<Categoria[]> = await axios.get(url, {
       headers: this.getAuthHeaders(),
     });
     return response.data;
   }
 
-  public async getCategoriaById(id: number): Promise<Categoria> {
-    const url = `${this.baseURL}/${id}`;
-    const response: AxiosResponse<Categoria> = await axios.get(url, {
-      headers: this.getAuthHeaders(),
-    });
+  public async crearCategoria(data: Omit<Categoria, "id">): Promise<Categoria> {
+    const response: AxiosResponse<Categoria> = await axios.post(
+      this.baseURL,
+      data,
+      { headers: this.getAuthHeaders() }
+    );
     return response.data;
   }
 
-  // No envíes 'id', el backend lo genera
-  public async crearCategoria(
-    categoria: Omit<Categoria, "id">
-  ): Promise<Categoria> {
-    const url = `${this.baseURL}`;
-    const response: AxiosResponse<Categoria> = await axios.post(url, categoria, {
-      headers: this.getAuthHeaders(),
-    });
-    return response.data;
-  }
-
-  // Permite edición parcial
-  public async editarCategoria(
-    id: number,
-    categoria: Partial<Categoria>
-  ): Promise<Categoria> {
+  public async editarCategoria(id: number, data: Partial<Categoria>): Promise<Categoria> {
     const url = `${this.baseURL}/${id}`;
     const response: AxiosResponse<Categoria> = await axios.put(
       url,
-      categoria,
-      {
-        headers: this.getAuthHeaders(),
-      }
+      data,
+      { headers: this.getAuthHeaders() }
     );
     return response.data;
   }
@@ -67,5 +53,15 @@ export class ServiceCategoria {
     await axios.delete(url, {
       headers: this.getAuthHeaders(),
     });
+  }
+
+  public async habilitarCategoria(id: number): Promise<Categoria> {
+    const url = `${this.baseURL}/${id}/enable`;
+    const response: AxiosResponse<Categoria> = await axios.patch(
+      url,
+      {},
+      { headers: this.getAuthHeaders() }
+    );
+    return response.data;
   }
 }

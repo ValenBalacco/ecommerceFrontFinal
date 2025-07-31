@@ -74,8 +74,28 @@
 
 .precioTachado {
   text-decoration: line-through;
-  color: #888b92;
-  font-size: 1.03em;
+  color: #d32f2f; /* rojo */
+  margin-right: 8px;
+}
+
+.precioConDescuento {
+  color: #ffffff; /* negro */
+  font-weight: bold;
+}
+
+.precioNormal {
+  color: #ffffff; /* negro */
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.descuentoBadge {
+  margin-left: 8px;
+  color: #fff;
+  background: #d32f2f;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.9em;
 }
 
 .totalDescuento {

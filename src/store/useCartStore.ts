@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface ICartItem {
+  productoId: number; // obligatorio
   detalleId: number;
   nombre: string;
   imagen: string;
@@ -27,6 +28,17 @@ export const useCartStore = create<ICartState>()(
       items: [],
 
       agregar: (item) => {
+        // Validación extra: productoId y detalleId obligatorios
+        if (
+          typeof item.productoId !== "number" ||
+          isNaN(item.productoId) ||
+          typeof item.detalleId !== "number" ||
+          isNaN(item.detalleId)
+        ) {
+          console.warn("Intento de agregar item sin productoId o detalleId válido:", item);
+          return;
+        }
+
         const currentItems = get().items;
         const index = currentItems.findIndex((i) => i.detalleId === item.detalleId);
 
@@ -61,3 +73,16 @@ export const useCartStore = create<ICartState>()(
     }
   )
 );
+
+// Ejemplo de cómo agregar un item correctamente
+/*
+agregar({
+  productoId: producto.id, // obligatorio
+  detalleId: detalle.id,
+  nombre: producto.nombre,
+  imagen: producto.imagen,
+  precio: precio,
+  cantidad: cantidad,
+  // ...otros campos opcionales
+});
+*/

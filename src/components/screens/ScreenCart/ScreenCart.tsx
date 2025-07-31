@@ -10,6 +10,7 @@ import DireccionesCliente from "../../ui/DireccionesCliente/DireccionesCliente";
 import ModalAgregarDireccion from "../../ui/ModalAgregarDireccion/ModalAgregarDireccion";
 import { handlePagar } from "../../../services/mercadoPagoService";
 import { mapCartItemsToMercadoPago } from "../../../helpers/mapCartItemsToMercadoPago";
+import { isDescuentoActivo, calcularDescuento } from "../../../helpers/descuentos";
 
 const detalleService = new ServiceDetalle();
 
@@ -63,7 +64,19 @@ export const ScreenCart = () => {
         allowOutsideClick: false,
         didOpen: () => Swal.showLoading(),
       });
-      await handlePagar(mapCartItemsToMercadoPago(items));
+
+      // Guarda los datos necesarios en localStorage ANTES de redirigir
+      localStorage.setItem("checkout_data", JSON.stringify({
+        items: items.map(item => ({
+          productoId: item.productoId, // <-- obligatorio
+          detalleId: item.detalleId,
+          cantidad: item.cantidad,
+        })),
+        direccionEnvioId: direccionSeleccionadaId,
+        usuario: usuario,
+      }));
+
+      await handlePagar(mapCartItemsToMercadoPago(items), direccionSeleccionadaId);
     } catch (err) {
       console.error("Error al iniciar el pago:", err);
       Swal.fire("Error", "No se pudo iniciar el pago con Mercado Pago", "error");
@@ -102,87 +115,93 @@ export const ScreenCart = () => {
                 : `Cantidad de productos: ${totalCantidad}`}
             </h3>
 
-            {items.map((producto) => (
-              <div key={producto.detalleId} className={styles.cardProducto}>
-                <img
-                  src={producto.imagen}
-                  alt={producto.nombre}
-                  className={styles.imagen}
-                />
+            {items.map((producto) => {
+              const precioBase = producto.precioVenta ?? producto.precio ?? 0;
+              const descuento = producto.descuento;
+              const descuentoActivo =
+                descuento && typeof descuento === "object" && isDescuentoActivo(descuento);
+              const porcentaje =
+                typeof descuento === "object" && descuento !== null && "porcentaje" in descuento
+                  ? (descuento as { porcentaje: number }).porcentaje ?? 0
+                  : 0;
+              const precioFinal = descuentoActivo && porcentaje > 0
+                ? calcularDescuento(precioBase, porcentaje)
+                : precioBase;
 
-                <div className={styles.infoProducto}>
-                  <p className={styles.nombre}>{producto.nombre}</p>
-                  {producto.talle && (
-                    <p className={styles.talle}>Talle: {producto.talle}</p>
-                  )}
-                </div>
+              return (
+                <div key={producto.detalleId} className={styles.cardProducto}>
+                  <img
+                    src={producto.imagen}
+                    alt={producto.nombre}
+                    className={styles.imagen}
+                  />
 
-                <div className={styles.cantidadProducto}>
-                  <div className={styles.simpleContador}>
-                    <button
-                      className={styles.simpleBoton}
-                      onClick={() =>
-                        cambiarCantidad(
-                          producto.detalleId,
-                          Math.max(1, producto.cantidad - 1)
-                        )
-                      }
-                    >
-                      −
-                    </button>
-                    <span className={styles.simpleValor}>
-                      {producto.cantidad}
-                    </span>
-                    <button
-                      className={styles.simpleBoton}
-                      onClick={() =>
-                        cambiarCantidad(
-                          producto.detalleId,
-                          producto.cantidad + 1
-                        )
-                      }
-                      disabled={
-                        producto.cantidad >= (stockMap[producto.detalleId] ?? Infinity)
-                      }
-                    >
-                      ＋
-                    </button>
+                  <div className={styles.infoProducto}>
+                    <p className={styles.nombre}>{producto.nombre}</p>
+                    {producto.talle && (
+                      <p className={styles.talle}>Talle: {producto.talle}</p>
+                    )}
                   </div>
-                  {producto.cantidad >= (stockMap[producto.detalleId] ?? Infinity) && (
-                    <span className={styles.simpleWarningInline}>
-                      Stock máx: {stockMap[producto.detalleId]}
-                    </span>
-                  )}
-                </div>
 
-                <div className={styles.precioProducto}>
-                  {producto.descuento && producto.descuento > 0 ? (
-                    <>
-                      <span className={styles.precioOriginal}>
-                        $
-                        {(
-                          producto.precio /
-                          (1 - producto.descuento / 100)
-                        ).toFixed(2)}
+                  <div className={styles.cantidadProducto}>
+                    <div className={styles.simpleContador}>
+                      <button
+                        className={styles.simpleBoton}
+                        onClick={() =>
+                          cambiarCantidad(
+                            producto.detalleId,
+                            Math.max(1, producto.cantidad - 1)
+                          )
+                        }
+                      >
+                        −
+                      </button>
+                      <span className={styles.simpleValor}>
+                        {producto.cantidad}
                       </span>
-                      <span className={styles.descuento}>
-                        {producto.descuento}% OFF
+                      <button
+                        className={styles.simpleBoton}
+                        onClick={() =>
+                          cambiarCantidad(
+                            producto.detalleId,
+                            producto.cantidad + 1
+                          )
+                        }
+                        disabled={
+                          producto.cantidad >= (stockMap[producto.detalleId] ?? Infinity)
+                        }
+                      >
+                        ＋
+                      </button>
+                    </div>
+                    {producto.cantidad >= (stockMap[producto.detalleId] ?? Infinity) && (
+                      <span className={styles.simpleWarningInline}>
+                        Stock máx: {stockMap[producto.detalleId]}
                       </span>
-                    </>
-                  ) : null}
-                  <span className={styles.precioFinal}>
-                    ${producto.precio.toFixed(2)}
-                  </span>
-                </div>
+                    )}
+                  </div>
 
-                <button
-                  onClick={() => eliminar(producto.detalleId)}
-                  className={styles.botonEliminar}
-                >
-                  <Trash2 size={16} />
-                </button>
-              </div>
-            ))}
+                  <div className={styles.precioProducto}>
+                    {descuentoActivo && porcentaje > 0 ? (
+                      <>
+                        <span className={styles.precioTachado}>${precioBase.toFixed(2)}</span>
+                        <span className={styles.precioConDescuento}>${precioFinal.toFixed(2)}</span>
+                        <span className={styles.descuentoBadge}>{porcentaje}% OFF</span>
+                      </>
+                    ) : (
+                      <span>${precioBase.toFixed(2)}</span>
+                    )}
+                  </div>
+
+                  <button
+                    onClick={() => eliminar(producto.detalleId)}
+                    className={styles.botonEliminar}
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              );
+            })}
           </div>
 
           <div className={styles.resumen}>

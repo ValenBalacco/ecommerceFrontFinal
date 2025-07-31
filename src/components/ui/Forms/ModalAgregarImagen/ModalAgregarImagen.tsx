@@ -69,13 +69,14 @@ export const ModalAgregarImagen: FC<IProps> = ({ closeModal, detalle }) => {
               >
                 <Trash2 />
               </span>
-              {/* Usar el campo 'url' para src y tambien para el alt, ya que el modelo no tiene 'alt' */}
+            
               <img src={imagen.url} alt={imagen.url} />
             </div>
           ))}
           <div
             className={styles.cuadroImagen}
             onClick={() => setModal(true)}
+            style={{ cursor: "pointer" }}
           >
             <span className={styles.addImg}>
               <Plus size={32} />
