@@ -1,54 +1,43 @@
-# React + TypeScript + Vite
+# 🛍️ Ecommerce Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este repositorio contiene el **frontend** de un proyecto de **Ecommerce**, desarrollado con **Vite**, **React** y **TypeScript**. Esta aplicación consume una **API RESTful** para gestionar productos, usuarios, direcciones, órdenes de compra y más.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologías utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ⚛️ React — Construcción de interfaces modernas
+- ⚡ Vite — Empaquetador ultrarrápido para desarrollo moderno
+- 🟦 TypeScript — Tipado estático para una mayor robustez
+- 🔄 Axios — Cliente HTTP para consumir la API REST
+- 🧠 Zustand / Redux — Gestión del estado global
+- 🎨 CSS Modules — Estilado por componente
+- 🧩 Componentes modulares reutilizables
 
-## Expanding the ESLint configuration
+## 📁 Estructura del proyecto
+src/
+├── components/
+│ ├── ui/
+│ ├── screens/
+├── helpers/
+├── routes/
+├── services/
+├── store/
+├── types/
+├── App.tsx
+├── main.tsx
+├── index.css
+└── vite-env.d.ts
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🧪 Funcionalidades clave
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- ✅ Registro e inicio de sesión de usuarios
+- ✅ Seguridad mediante autenticación con JSON Web Tokens (JWT)
+- ✅ Gestión de direcciones del usuario
+- ✅ Visualización y filtrado de productos
+- ✅ Agregar y modificar productos en el carrito
+- ✅ Checkout con diferentes estados (éxito, pendiente, error)
+- ✅ Integración con Mercado Pago para pagos online
+- ✅ Carga y almacenamiento de imágenes en Cloudinary
+- ✅ Panel de administración (usuarios, productos, órdenes)
+- ✅ Creación de productos con eliminado lógico
+- ✅ Asociación de productos con categorías, talles y características
+- ✅ Generación y gestión de descuentos
