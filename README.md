@@ -8,7 +8,6 @@ Este repositorio contiene el **frontend** de un proyecto de **Ecommerce**, desar
 - ⚡ Vite — Empaquetador ultrarrápido para desarrollo moderno
 - 🟦 TypeScript — Tipado estático para una mayor robustez
 - 🔄 Axios — Cliente HTTP para consumir la API REST
-- 🧠 Zustand / Redux — Gestión del estado global
 - 🎨 CSS Modules — Estilado por componente
 - 🧩 Componentes modulares reutilizables
 
