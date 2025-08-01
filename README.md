@@ -13,6 +13,7 @@ Este repositorio contiene el **frontend** de un proyecto de **Ecommerce**, desar
 - 🧩 Componentes modulares reutilizables
 
 ## 📁 Estructura del proyecto
+```bash
 src/
 ├── components/
 │ ├── ui/
@@ -26,7 +27,7 @@ src/
 ├── main.tsx
 ├── index.css
 └── vite-env.d.ts
-
+```
 ## 🧪 Funcionalidades clave
 
 - ✅ Registro e inicio de sesión de usuarios
